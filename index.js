@@ -13,6 +13,6 @@ app.use(cors());
 app.use("/", routes);
 
 smtpServer.listen(smtpPort, () => {
-  console.log("SMTP server is listening on port 25 (localhost)");
+  console.log(`SMTP server is listening on ${smtpPort}`);
 });
 app.listen(port, () => console.log(`App is running on ${port}`));

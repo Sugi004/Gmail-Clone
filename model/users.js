@@ -7,9 +7,9 @@ const validateEmail = (e) => {
 
 const emailSchema = new mongoose.Schema({
   from: String,
-  to: String,
+  to: [String],
   subject: String,
-  message: String,
+  body: String,
   date: Date
 });
 const userSchema = new mongoose.Schema(
@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "password is required"]
     },
+
     receivedMails: [emailSchema],
     sentMails: [emailSchema]
   },

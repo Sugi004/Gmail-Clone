@@ -3,6 +3,7 @@ const auth = require("../common/Auth");
 const sanitize = require("../common/sanitize");
 const userModel = require("../model/users");
 
+//Create a Nodemailer Transport
 let transport = nodemailer.createTransport({
   host: "localhost",
   port: process.env.smtpPort || 25,
@@ -16,32 +17,49 @@ let transport = nodemailer.createTransport({
     rejectUnauthorized: false
   }
 });
+
+// Calling the Transporter function when we hit the send mail
+
 let transporter = (req, res) => {
-  req.body.sentMails.forEach((e) => {
-    (to = e.to), (subject = e.subject), (message = e.message);
+  let fromUser = req.body.email;
+  let recipient = [];
+  let subject;
+  let body;
+  let date = new Date().toTimeString().split(" ")[0];
+  let requestReceived = req.body.sentMails;
+
+  // Destructuring the received objects
+
+  requestReceived.forEach((e) => {
+    e.to.forEach((e) => {
+      return recipient.push(e);
+    });
+    subject = e.subjec;
+    body = e.body;
   });
 
-  var message = {
-    from: req.body.email,
-    to: to,
+  const message = {
+    from: fromUser,
+    to: recipient,
     subject: subject,
-    text: message,
-    date: new Date().toTimeString().split(" ")[0]
+    text: body,
+    date: date
   };
 
   const validateEmail = (e) => {
-    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return emailPattern.test(e);
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return e.every((email) => emailPattern.test(email));
   };
+  // Check if the Email is Valid
 
   if (validateEmail(message.to)) {
+    // Transporting the mail to SMTP
     transport.sendMail(message, async (error, info) => {
       if (error) {
         res.status(500).send({ errMessage: error.message });
         return console.log(error);
       }
       res.status(200).send({ message: "Mail sent successfully" });
-      console.log("Message sent: %s", info.messageId);
     });
   } else {
     res.status(404).send({ message: "Please provide an valid email" });
@@ -50,31 +68,30 @@ let transporter = (req, res) => {
 
 const deleteMailById = async (req, res) => {
   try {
+    // Sanitize the received Params
     let receivedId = sanitize.isString(req.params.id);
+    // Validate whether Token is present
     let token = req?.headers?.authorization?.split(" ")[1];
+
     if (token) {
+      // Decode the Token to get the email id of the logged in user
       let payload = await auth.decodeToken(token);
-      let user = await userModel.findOne({ email: payload.email });
 
-      if (user) {
-        await userModel.updateOne(
-          {},
-          { $pull: { receivedMails: { _id: receivedId } } },
-          { multi: true }
-        );
-        await userModel.updateOne(
-          {},
-          { $pull: { sentMails: { _id: receivedId } } },
-          { multi: true }
-        );
+      // Delete the email based on the payload email and _id
+      await userModel.updateOne(
+        { email: payload.email },
+        { $pull: { receivedMails: { _id: receivedId } } },
+        { multi: true }
+      );
 
-        res.status(200).send({
-          message: "Mail Deleted Successfully"
-        });
-      }
-    } else {
-      res.status(400).send({
-        message: "Invalid Mail ID"
+      await userModel.updateOne(
+        { email: payload.email },
+        { $pull: { sentMails: { _id: receivedId } } },
+        { multi: true }
+      );
+
+      res.status(200).send({
+        message: "Mail Deleted Successfully"
       });
     }
   } catch (error) {

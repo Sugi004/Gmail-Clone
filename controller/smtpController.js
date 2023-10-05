@@ -6,11 +6,11 @@ const smtpServer = new SMTPServer({
   secure: false,
   authOptional: true,
   onAuth(auth, session, callback) {
-    // Hardcoded username and password for testing (replace with your own values)
+    // Hardcoded username and password as it's for Development
     const Username = process.env.user;
     const Password = process.env.password;
 
-    // Check if provided credentials match the expected ones
+    // Check if provided credentials match
     if (auth.username === Username && auth.password === Password) {
       // Authentication successful
       session.user = { username: auth.username };
@@ -26,28 +26,28 @@ const smtpServer = new SMTPServer({
     stream.on("data", (chunk) => {
       messageData += chunk.toString();
     });
+
     // When the entire email is received
     stream.on("end", () => {
       const mailParser = new MailParser();
 
       mailParser.on("headers", async (headers) => {
         const fromEmail = headers.get("from").text;
-        const toEmail = headers.get("to").text;
+        const toEmail = headers.get("to").text.split(",");
 
-        // Create an email object with the headers
+        // Creating an emailObject with headers
+
         const emailObject = {
           from: fromEmail,
           to: toEmail,
           subject: headers.get("subject"),
           date: headers.get("date"),
-          message: ""
+          body: ""
         };
 
         // Listen for data and concatenate it to the data field
         mailParser.on("data", (data) => {
-          emailObject.message += data.text.replace(/\n/g, "");
-
-          console.log(emailObject.message);
+          emailObject.body += data.text.replace(/\n/g, "");
         });
 
         // When the email parsing is complete
@@ -57,20 +57,25 @@ const smtpServer = new SMTPServer({
 
           // Check if the sender is the logged-in user (or the recipient)
           if (senderUser) {
-            // Save the email object to the sentMails array
+            // Save the emailObject to the sentMails array
             senderUser.sentMails.push(emailObject);
             senderUser.save();
           }
-          // Find the recipient user by their email address
-          let recipientUser = await userModel.findOne({ email: toEmail });
 
-          if (recipientUser) {
-            // Save the email object to the receivedMails array of the recipient user
-            recipientUser.receivedMails.push(emailObject);
+          // Check if there are multiple recipients in mail
+          for (const element of emailObject.to) {
+            const recipientEmail = element.trim(); // To delete trailing spaces if any
 
-            // Save the recipient user's changes to the database
-            recipientUser.save();
-            console.log("recipient saved successfully");
+            // Find the recipient user by their email address
+            let recipientUser = await userModel.findOne({
+              email: recipientEmail
+            });
+
+            if (recipientUser) {
+              // Save the emailObject to the receivedMails array of the recipient user
+              recipientUser.receivedMails.push(emailObject);
+              recipientUser.save();
+            }
           }
         });
       });

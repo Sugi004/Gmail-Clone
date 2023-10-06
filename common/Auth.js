@@ -2,11 +2,13 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const hashPassword = async (password) => {
-  let hashedPassword = await bcrypt.hash(password, 15);
-
+  // Hash Password
+  let saltRound = 15;
+  let hashedPassword = await bcrypt.hash(password, saltRound);
   return hashedPassword;
 };
 
+// Compare Password while logging in
 const comparePassword = async (password, hashedPassword) => {
   return bcrypt.compare(password, hashedPassword);
 };
@@ -18,19 +20,23 @@ const createToken = async (payload) => {
   return token;
 };
 
+// Decode token to get the payload
 const decodeToken = async (token) => {
   return await jwt.decode(token);
 };
-
+// Validate token
 const validate = async (req, res, next) => {
   try {
     let token = req?.headers?.authorization?.split(" ")[1];
 
     if (token) {
+      // If token present getting the expire time
       let payload = await decodeToken(token);
       let currTime = Math.round(+new Date() / 1000);
 
+      // Compare current time and Expire time
       if (currTime < payload.exp) {
+        // If Expire time is less than currentTime moving to next
         next();
       } else {
         res.status(400).send({ message: "Token expired" });
@@ -43,29 +49,10 @@ const validate = async (req, res, next) => {
   }
 };
 
-const deleteEmail = async (req, res, next) => {
-  try {
-    let token = req?.headers?.authorization?.split(" ")[1];
-
-    if (token) {
-      let payload = await decodeToken(token);
-
-      if (payload.role === "admin") {
-        next();
-      } else {
-        res.status(400).send({ message: "Only Admin are alowed to access" });
-      }
-    } else {
-      res.status(401).send({ message: "Token not found" });
-    }
-  } catch (error) {}
-};
-
 module.exports = {
   hashPassword,
   comparePassword,
   createToken,
   validate,
-  decodeToken,
-  deleteEmail
+  decodeToken
 };

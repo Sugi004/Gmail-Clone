@@ -3,8 +3,12 @@ const sanitize = require("../common/sanitize");
 const auth = require("../common/Auth");
 
 const getData = async (req, res) => {
+  let token = req?.headers?.authorization?.split(" ")[1];
   try {
-    let data = await userModel.find();
+    // Decode Token to get the Email ID
+    let payload = await auth.decodeToken(token);
+    // Show data of logged in user
+    let data = await userModel.find({ email: payload.email });
     res.status(200).send({
       data
     });

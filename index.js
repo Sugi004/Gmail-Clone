@@ -9,7 +9,7 @@ const port = process.env.port || 8000;
 const smtpPort = process.env.smtpPort || 25;
 
 app.use(express.json());
-app.use(cors({ credentials: true }));
+app.use(cors({ origin: "http://localhost:8000", credentials: true }));
 app.use(cookieParser());
 app.use("/", routes);
 

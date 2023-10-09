@@ -67,7 +67,7 @@ const loginUser = async (req, res) => {
           email: user.email
         });
         res.cookie("accessToken", token, {
-          expire: new Date() + process.env.JWT_EXPIRE
+          expire: new Date(Date.now() + process.env.JWT_EXPIRE * 1000)
         });
         res.status(200).send({
           message: "Login Successfull"

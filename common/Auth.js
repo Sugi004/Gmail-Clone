@@ -14,9 +14,7 @@ const comparePassword = async (password, hashedPassword) => {
 };
 
 const createToken = async (payload) => {
-  let token = await jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
-  });
+  let token = await jwt.sign(payload, process.env.JWT_SECRET);
   return token;
 };
 
@@ -33,7 +31,7 @@ const validate = async (req, res, next) => {
       // If token present getting the expire time
       let payload = await decodeToken(cookies.accessToken);
       let currTime = Math.round(+new Date() / 1000);
-
+      console.log(currTime, payload.exp);
       // Compare current time and Expire time
       if (currTime < payload.exp) {
         // If Expire time is less than currentTime moving to next

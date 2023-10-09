@@ -3,10 +3,10 @@ const sanitize = require("../common/sanitize");
 const auth = require("../common/Auth");
 
 const getData = async (req, res) => {
-  let token = req?.headers?.authorization?.split(" ")[1];
   try {
+    let { cookies } = req;
     // Decode Token to get the Email ID
-    let payload = await auth.decodeToken(token);
+    let payload = await auth.decodeToken(cookies.accessToken);
     // Show data of logged in user
     let data = await userModel.find({ email: payload.email });
     res.status(200).send({
@@ -66,7 +66,9 @@ const loginUser = async (req, res) => {
           firstName: user.firstName,
           email: user.email
         });
-        res.cookie("accessToken", token);
+        res.cookie("accessToken", token, {
+          expire: new Date() + process.env.JWT_EXPIRE
+        });
         res.status(200).send({
           message: "Login Successfull"
         });

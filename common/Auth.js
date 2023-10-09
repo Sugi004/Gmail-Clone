@@ -27,11 +27,11 @@ const decodeToken = async (token) => {
 // Validate token
 const validate = async (req, res, next) => {
   try {
-    let token = req?.headers?.authorization?.split(" ")[1];
+    let { cookies } = req;
 
-    if (token) {
+    if (cookies.accessToken) {
       // If token present getting the expire time
-      let payload = await decodeToken(token);
+      let payload = await decodeToken(cookies.accessToken);
       let currTime = Math.round(+new Date() / 1000);
 
       // Compare current time and Expire time

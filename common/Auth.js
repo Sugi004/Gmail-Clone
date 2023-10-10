@@ -28,21 +28,12 @@ const decodeToken = async (token) => {
 const validate = async (req, res, next) => {
   try {
     let { cookies } = req;
-
+    // Check Cookie is present or not
     if (cookies.accessToken) {
-      // If token present getting the expire time
-      let payload = await decodeToken(cookies.accessToken);
-      let currTime = Math.round(+new Date() / 1000);
-      console.log(currTime, payload.exp, cookies.accessToken);
-      // Compare current time and Expire time
-      if (currTime < payload.exp) {
-        // If Expire time is less than currentTime moving to next
-        next();
-      } else {
-        res.status(400).send({ message: "Token expired" });
-      }
+      // Cookie is present
+      next();
     } else {
-      res.status(401).send({ message: "Unauthorized access" });
+      res.status(400).send({ message: "Unautherized Access" });
     }
   } catch (error) {
     res.status(500).send({ errorMessage: error.message });

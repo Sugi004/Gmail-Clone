@@ -7,6 +7,7 @@ const getData = async (req, res) => {
     let { cookies } = req;
     // Decode Token to get the Email ID
     let payload = await auth.decodeToken(cookies.accessToken);
+    console.log();
     // Show data of logged in user
     let data = await userModel.find({ email: payload.email });
     res.status(200).send({
@@ -72,7 +73,7 @@ const loginUser = async (req, res) => {
           email: user.email
         });
         res.cookie("accessToken", token, {
-          expires: new Date(Date.now() + process.env.JWT_EXPIRE),
+          expires: new Date(Date.now() + 36000),
           sameSite: "none",
           secure: true
         });

@@ -40,10 +40,10 @@ const validate = async (req, res, next) => {
         res.status(400).send({ message: "Token expired" });
       }
     } else {
-      res.status(401).send({ message: "Token not found" });
+      res.status(401).send({ message: "Unauthorized access" });
     }
   } catch (error) {
-    console.log(error);
+    res.status(500).send({ errorMessage: error.message });
   }
 };
 

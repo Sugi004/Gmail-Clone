@@ -91,4 +91,15 @@ const loginUser = async (req, res) => {
     });
   }
 };
-module.exports = { createUser, loginUser, getData };
+
+const signOut = async (req, res) => {
+  try {
+    res.clearCookie("accessToken");
+    res.status(200).send({ message: "User Signed out Successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Internal Server error", errorMessage: error.message });
+  }
+};
+module.exports = { createUser, loginUser, getData, signOut };

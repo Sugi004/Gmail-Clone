@@ -24,10 +24,20 @@ const isObject = (value) => {
     : {};
 };
 
+const isTitleCase = (value) => {
+  return value
+    .toLowerCase()
+    .split(" ")
+    .map((e) => {
+      return e[0].toUpperCase() + e.slice(1);
+    })
+    .join(" ");
+};
 module.exports = {
   isString,
   isBoolean,
   isArray,
   isNumber,
-  isObject
+  isObject,
+  isTitleCase
 };

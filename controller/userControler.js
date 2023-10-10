@@ -22,8 +22,13 @@ const getData = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const firstName = sanitize.isString(req.body.firstName).toLowerCase();
-    const lastName = sanitize.isString(req.body.lastName).toLowerCase();
+    const firstName =
+      sanitize.isString(req.body.firstName) &&
+      sanitize.isTitleCase(req.body.firstName);
+    const lastName =
+      sanitize.isString(req.body.lastName) &&
+      sanitize.isTitleCase(req.body.lastName);
+
     const email = sanitize.isString(req.body.email).toLowerCase();
     let password = sanitize.isString(req.body.password);
 
@@ -56,8 +61,8 @@ const createUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
-    let email = sanitize.isString(req.body.email).toLowerCase();
-    let password = sanitize.isString(req.body.password).toLowerCase();
+    let email = sanitize.isString(req.body.email);
+    let password = sanitize.isString(req.body.password);
 
     let user = await userModel.findOne({ email: email });
     if (user) {

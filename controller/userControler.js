@@ -72,6 +72,7 @@ const loginUser = async (req, res) => {
           email: user.email
         });
         res.cookie("accessToken", token, {
+          expires: new Date(Date.now() + process.env.JWT_EXPIRE),
           sameSite: "none",
           secure: true
         });

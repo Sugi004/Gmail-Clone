@@ -1,0 +1,119 @@
+.faIcon {
+  color: GrayText;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.delete-icon {
+  position: absolute;
+  width: 80px;
+  height: 33px;
+  background-color: inherit;
+  top: 0px;
+  right: 0;
+  border-radius: 30px;
+  display: none;
+  vertical-align: middle;
+  align-items: centers;
+}
+
+.deleteIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+.gmail-table tr:hover .delete-icon {
+  display: inline-block;
+}
+
+/* Optional: Customize the appearance of the checkbox */
+
+.opened {
+  background-color: rgba(214, 236, 240, 0.349);
+}
+
+/* Styles for Sent table*/
+.gmail-SentTable {
+  font-family: sans-serif;
+  font-weight: 500;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  padding: 0px;
+  margin: 0;
+}
+
+.gmail-SentTable table {
+  border-collapse: collapse;
+  width: 100%;
+  cursor: pointer;
+  background-color: rgba(214, 236, 240, 0.349);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.gmail-SentTable td {
+  padding: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  outline: none;
+  border-bottom: 0.5px solid #e0e0e0;
+}
+
+.gmail-SentTable tr {
+  border: none;
+  outline: none;
+}
+
+.gmail-SentTable .checkbox-cell input[type="checkbox"] {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.checkbox-cell input[type="checkbox"] {
+  border: none !important;
+  outline: none !important;
+}
+/* Style for hover effect on table rows */
+.gmail-SentTable tbody tr:hover {
+  background-color: #f5f7fa;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.gmail-SentTable tr:hover .delete-icon {
+  display: inline-block;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 50px;
+}
+
+.boldFont {
+  font-weight: 600;
+  font-stretch: extra-expanded;
+  padding-top: 8px;
+}
+.normalFont {
+  font-weight: 400;
+}
+
+/* Adjust the width's of table*/
+td:nth-child(1) td:nth-child(2) {
+  width: 30px;
+}
+td:nth-child(3) {
+  width: 250px;
+}
+td:nth-child(6) {
+  width: 70px;
+}
+
+td:nth-child(3) {
+  width: 300px;
+}

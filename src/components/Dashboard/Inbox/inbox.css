@@ -1,0 +1,146 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-top: 0ch;
+  padding: 0%;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+  user-select: none;
+  background-color: none;
+  border: none;
+}
+
+.tab.active {
+  color: rgb(14, 136, 236);
+  border-bottom: 2px solid rgb(14, 136, 236);
+}
+
+.tab:hover {
+  background-color: rgba(233, 230, 230, 0.589);
+}
+
+.gmail-table {
+  font-family: sans-serif;
+  font-weight: 500;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  padding: 0px;
+  margin: 0;
+}
+
+.gmail-table table {
+  border-collapse: collapse;
+  width: 100%;
+  cursor: pointer;
+  background-color: #ffffff;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.gmail-table td {
+  padding: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  outline: none;
+  border-bottom: 0.5px solid #e0e0e0;
+}
+
+.gmail-table tr {
+  border: none;
+  outline: none;
+}
+
+.gmail-table .checkbox-cell input[type="checkbox"] {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.checkbox-cell input[type="checkbox"] {
+  border: none !important;
+  outline: none !important;
+}
+/* Style for hover effect on table rows */
+.gmail-table tbody tr:hover {
+  background-color: #f5f7fa;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.faIcon {
+  color: GrayText;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.delete-icon {
+  position: absolute;
+  width: 80px;
+  height: 33px;
+  background-color: inherit;
+  top: 0px;
+  right: 0;
+  border-radius: 30px;
+  display: none;
+  vertical-align: middle;
+  align-items: centers;
+}
+
+.deleteIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+.gmail-table tr:hover .delete-icon {
+  display: inline-block;
+}
+
+/* Optional: Customize the appearance of the checkbox */
+
+.opened {
+  background-color: rgba(214, 236, 240, 0.349);
+}
+
+::-webkit-scrollbar {
+  width: 100px;
+}
+
+::-webkit-scrollbar-track-piece {
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  height: 20px;
+}
+
+.boldFont {
+  font-weight: 600;
+  font-stretch: extra-expanded;
+  padding-top: 8px;
+}
+.normalFont {
+  font-weight: 400;
+}
+
+/* Adjust the width's of table*/
+td:nth-child(1) td:nth-child(2) {
+  width: 30px;
+}
+td:nth-child(3) {
+  width: 250px;
+}
+td:nth-child(6) {
+  width: 70px;
+}
+
+td:nth-child(3) {
+  width: 300px;
+}

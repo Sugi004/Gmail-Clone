@@ -1,4 +1,4 @@
-import Tabs from "./tabs";
+import Tabs from "./Tabs.jsx";
 import "./inbox.css";
 import Loaders from "../../../LoaderComponents/Loaders";
 import { toast } from "react-toastify";

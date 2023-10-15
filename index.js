@@ -9,7 +9,15 @@ const port = process.env.port || 8000;
 const smtpPort = process.env.smtpPort || 25;
 
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://gmail-clone-fe--lambent-cascaron-86ce02.netlify.app/"
+    ],
+    credentials: true
+  })
+);
 app.use(cookieParser());
 app.use("/", routes);
 

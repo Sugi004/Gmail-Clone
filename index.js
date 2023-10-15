@@ -11,7 +11,6 @@ const smtpPort = process.env.smtpPort || 25;
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://gmail-clone-fe--lambent-cascaron-86ce02.netlify.app",
     credentials: true
   })
 );

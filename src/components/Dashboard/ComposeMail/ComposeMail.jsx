@@ -21,9 +21,7 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
         let res = await axios.post(
           `${import.meta.env.VITE_API_URL}/send`,
           {
-            to: inputs.to,
-            subject: inputs.subject,
-            body: inputs.body
+            ...inputs
           },
           {
             withCredentials: true
@@ -46,6 +44,13 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
     }
   };
 
+  const handleInputs = (e) => {
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.name
+    });
+  };
+
   return (
     <div className={`slide-up-component ${istoggleVisibile ? "active" : ""}`}>
       <div className="composeMail-title">
@@ -62,20 +67,24 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
                 type="email"
                 className="emailForm"
                 placeholder="Recipients"
-                onChange={(e) => {
-                  setInputs({ to: e.target.value });
-                }}
+                name="to"
+                onChange={handleInputs}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <input type="email" className="emailForm" placeholder="Subject" />
+              <input
+                type="email"
+                className="emailForm"
+                placeholder="Subject"
+                name="subject"
+                onChange={handleInputs}
+              />
             </Form.Group>
             <Form.Group
               className="mb-2"
               controlId="exampleForm.ControlTextarea1"
-              onChange={(e) => {
-                setInputs({ body: e.target.value });
-              }}
+              name="body"
+              onChange={handleInputs}
             >
               <textarea className="textArea" type="textarea" />
             </Form.Group>

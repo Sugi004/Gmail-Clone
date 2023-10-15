@@ -51,3 +51,11 @@ img {
   outline-offset: none !important;
   border: none !important;
 }
+
+#signOutButton {
+  width: 150px;
+  height: 40px;
+  margin: 0;
+  margin-top: 5px;
+  margin-left: 30px;
+}

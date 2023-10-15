@@ -6,17 +6,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Navbars() {
+  const navigate = useNavigate();
   const handleSignOut = async () => {
     try {
       let res = await axios.get(`${import.meta.env.VITE_API_URL}/sign-out`, {
         withCredentials: true
       });
       if (res.status === 200) {
-        Navigate("/login");
-        toast.success(res.message);
+        navigate("/login");
+        toast.success("Signed out Successfully", { autoClose: 600 });
       }
     } catch (error) {
       toast.error("Error in signing out");
@@ -36,7 +37,9 @@ function Navbars() {
             placeholder="Search mail"
             aria-label="Search"
           />
-          <Button onClick={handleSignOut}> Sign Out</Button>
+          <Button id="signOutButton" onClick={handleSignOut}>
+            Sign Out
+          </Button>
         </Form>
       </div>
     </>

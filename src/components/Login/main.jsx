@@ -22,8 +22,7 @@ function Login() {
       let res = await axios.post(
         `${import.meta.env.VITE_API_URL}/login`,
         {
-          email: inputs.email.toLowerCase(),
-          password: inputs.password
+          ...inputs
         },
         {
           withCredentials: true
@@ -46,7 +45,12 @@ function Login() {
       });
     }
   };
-
+  const handleInputs = (e) => {
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value
+    });
+  };
   return (
     <>
       <div className="container login-wrapper">
@@ -71,9 +75,7 @@ function Login() {
                 placeholder="Enter Email"
                 name="email"
                 autoComplete="off"
-                onChange={(e) => {
-                  setInputs({ email: e.target.value });
-                }}
+                onChange={handleInputs}
               />
             </FloatingLabel>
           </Form.Group>
@@ -89,9 +91,7 @@ function Login() {
                 placeholder="Password"
                 name="password"
                 autoComplete="off"
-                onChange={(e) => {
-                  setInputs({ password: e.target.value });
-                }}
+                onChange={handleInputs}
               />
             </FloatingLabel>
           </Form.Group>

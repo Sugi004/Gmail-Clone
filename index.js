@@ -5,7 +5,7 @@ const app = express();
 const routes = require("./routes/routes");
 const smtpServer = require("./controller/smtpController");
 const cookieParser = require("cookie-parser");
-const port = process.env.port || 8000;
+
 const smtpPort = process.env.smtpPort || 25;
 
 const allowedOrigins = [
@@ -19,10 +19,22 @@ app.use(
     credentials: true
   })
 );
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", allowedOrigins);
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  );
+  res.header(
+    "Access-Control-Allow-Header",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  next();
+});
 app.use(cookieParser());
 app.use("/", routes);
 
 smtpServer.listen(smtpPort, () => {
   console.log(`SMTP server is listening on ${smtpPort}`);
 });
-app.listen(port, () => console.log(`App is running on ${port}`));
+app.listen();

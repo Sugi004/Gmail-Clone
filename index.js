@@ -7,7 +7,7 @@ const smtpServer = require("./controller/smtpController");
 const cookieParser = require("cookie-parser");
 
 const smtpPort = process.env.smtpPort || 25;
-
+const port = process.env.PORT;
 const allowedOrigins = [
   "https://gmail-clone-fe--lambent-cascaron-86ce02.netlify.app/",
   "http://localhost:5173"
@@ -37,4 +37,6 @@ app.use("/", routes);
 smtpServer.listen(smtpPort, () => {
   console.log(`SMTP server is listening on ${smtpPort}`);
 });
-app.listen();
+app.listen(port, () => {
+  `App is running on ${port}`;
+});

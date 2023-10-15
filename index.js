@@ -8,13 +8,14 @@ const cookieParser = require("cookie-parser");
 const port = process.env.port || 8000;
 const smtpPort = process.env.smtpPort || 25;
 
+const allowedOrigins = [
+  "https://gmail-clone-fe--lambent-cascaron-86ce02.netlify.app/",
+  "http://localhost:5173"
+];
 app.use(express.json());
 app.use(
   cors({
-    origin: [
-      "https://gmail-clone-fe--lambent-cascaron-86ce02.netlify.app/",
-      "http://localhost:8000/"
-    ],
+    origin: allowedOrigins,
     credentials: true
   })
 );

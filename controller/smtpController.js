@@ -32,8 +32,11 @@ const smtpServer = new SMTPServer({
       const mailParser = new MailParser();
 
       mailParser.on("headers", async (headers) => {
-        const fromEmail = headers.get("from").text;
-        const toEmail = headers.get("to").text.split(",");
+        const fromEmail = headers.get("from").text.trim();
+        let toEmail = headers.get("to").text.split(",");
+
+        // Filter if recipient and Sender are same
+        toEmail = toEmail.filter((e) => e.trim() !== fromEmail);
 
         // Creating an emailObject with headers
 
@@ -64,7 +67,7 @@ const smtpServer = new SMTPServer({
 
           // Check if there are multiple recipients in mail
           for (const element of emailObject.to) {
-            const recipientEmail = element.trim(); // To delete trailing spaces if any
+            const recipientEmail = element.trim(); // Delete trailing spaces if any
 
             // Find the recipient user by their email address
             let recipientUser = await userModel.findOne({

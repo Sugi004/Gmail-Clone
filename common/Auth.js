@@ -31,7 +31,7 @@ const validate = async (req, res, next) => {
       // Cookie is present
       next();
     } else {
-      res.status(400).send({ message: "Unautherized Access" });
+      res.status(400).send({ message: "Unauthorized Access" });
     }
   } catch (error) {
     res.status(500).send({ errorMessage: error.message });

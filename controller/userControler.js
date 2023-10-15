@@ -5,9 +5,11 @@ const auth = require("../common/Auth");
 const getData = async (req, res) => {
   try {
     let { cookies } = req;
+
+    let token = cookies.accessToken;
     // Decode Token to get the Email ID
-    let payload = await auth.decodeToken(cookies.accessToken);
-    console.log();
+    let payload = await auth.decodeToken(token);
+
     // Show data of logged in user
     let data = await userModel.find({ email: payload.email });
     res.status(200).send({
@@ -73,7 +75,7 @@ const loginUser = async (req, res) => {
           email: user.email
         });
         res.cookie("accessToken", token, {
-          expires: new Date() + 3600000,
+          expire: new Date() + 3600000,
           sameSite: "none",
           secure: true
         });

@@ -2,6 +2,8 @@ const nodemailer = require("nodemailer");
 const auth = require("../common/Auth");
 const sanitize = require("../common/sanitize");
 const userModel = require("../model/users");
+const mongoose = require("mongoose");
+let ObjectId = mongoose.Types.ObjectId;
 
 //Create a Nodemailer Transport
 let transport = nodemailer.createTransport({
@@ -20,8 +22,14 @@ let transport = nodemailer.createTransport({
 
 // Calling the Transporter function when we hit the send mail
 
-let transporter = (req, res) => {
-  let fromUser = req.body.email;
+let transporter = async (req, res) => {
+  // Get From Email from cookie
+
+  const { cookies } = req;
+  const token = cookies.accessToken;
+  const mail = await auth.decodeToken(token);
+
+  let fromUser = mail.email;
   let recipient = [];
   let subject;
   let body;
@@ -34,7 +42,7 @@ let transporter = (req, res) => {
     e.to.forEach((e) => {
       return recipient.push(e);
     });
-    subject = e.subjec;
+    subject = e.subject;
     body = e.body;
   });
 
@@ -70,8 +78,9 @@ const deleteMailById = async (req, res) => {
   try {
     // Sanitize the received Params
     let receivedId = sanitize.isString(req.params.id);
-    // Validate whether Token is present
-    let token = req?.headers?.authorization?.split(" ")[1];
+    // Validate the Cookie
+    let { cookies } = req;
+    let token = cookies.accessToken;
 
     if (token) {
       // Decode the Token to get the email id of the logged in user
@@ -102,4 +111,39 @@ const deleteMailById = async (req, res) => {
   }
 };
 
-module.exports = { transporter, deleteMailById };
+const getMailById = async (req, res) => {
+  try {
+    //Sanitize the Received params
+    let receivedId = new ObjectId(sanitize.isString(req.params.id));
+    // Validate the Cookie
+    let { cookies } = req;
+    let token = cookies.accessToken;
+
+    if (token) {
+      // Decode the Token to get the email id of the logged in user
+      let payload = await auth.decodeToken(token);
+
+      let recievedMail = await userModel.findOne(
+        { email: payload.email },
+        { receivedMails: { $elemMatch: { _id: receivedId } } }
+      );
+
+      let sentMail = await userModel.findOne(
+        { email: payload.email },
+        { sentMails: { $elemMatch: { _id: receivedId } } }
+      );
+
+      res.status(200).send({
+        recievedMail,
+        sentMail
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: "Internal Server Error",
+      errorMessage: error.message
+    });
+  }
+};
+
+module.exports = { transporter, deleteMailById, getMailById };

@@ -6,6 +6,8 @@ const auth = require("../common/Auth");
 
 router.get("/", auth.validate, userController.getData);
 
+router.get("/mails/:id", mailController.getMailById);
+
 router.get("/sign-out", userController.signOut);
 
 router.post("/send", auth.validate, mailController.transporter);

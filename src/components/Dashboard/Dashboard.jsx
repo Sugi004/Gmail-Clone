@@ -2,11 +2,11 @@ import Navbars from "../Navbar/Navbars";
 import Sidebar from "../Side bar/Sidebar";
 import { Outlet } from "react-router-dom";
 import "./index.css";
-import useAuth from "../../Validation/useAuth";
+// import useAuth from "../../Validation/useAuth";
 
 function Dashboard() {
   // Validating cookies,calling it here as it's a nested routes
-  useAuth();
+  // useAuth();
 
   return (
     <>

@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-// import { useQueryClient } from "react-query";
 
 function Inbox() {
   const {
@@ -80,6 +79,7 @@ function Inbox() {
                       <tr
                         key={i}
                         className={openedMail.includes(e._id) ? "opened " : ""}
+                        onClick={() => handleOpenMail(e._id)}
                       >
                         <td className="checkbox-cell">
                           <input type="checkbox" />

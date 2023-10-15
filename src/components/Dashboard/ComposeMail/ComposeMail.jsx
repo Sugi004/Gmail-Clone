@@ -10,19 +10,23 @@ import axios from "axios";
 
 function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
   let [inputs, setInputs] = useState({
-    to: "",
     subject: "",
     body: ""
   });
-
+  let [senderEmail, setSenderEmail] = useState([""]);
+  console.log(senderEmail);
   const handleSendMail = async () => {
     try {
       if (inputs.to !== "") {
         let res = await axios.post(
           `${import.meta.env.VITE_API_URL}/send`,
+
           {
-            ...inputs
+            to: senderEmail.split(";"),
+            subject: inputs.subject,
+            body: inputs.body
           },
+
           {
             withCredentials: true
           }
@@ -30,6 +34,7 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
 
         if (res.status === 200) {
           toast.success(res.data.message, {
+            position: "top-left",
             autoClose: 500
           });
           toggleSlideUp;
@@ -47,8 +52,12 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
   const handleInputs = (e) => {
     setInputs({
       ...inputs,
-      [e.target.name]: e.target.name
+      [e.target.name]: e.target.value
     });
+  };
+
+  const handleInputChange = (e) => {
+    setSenderEmail(e.target.value);
   };
 
   return (
@@ -67,8 +76,10 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
                 type="email"
                 className="emailForm"
                 placeholder="Recipients"
+                autoComplete="off"
+                autoCorrect="off"
                 name="to"
-                onChange={handleInputs}
+                onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -83,10 +94,13 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
             <Form.Group
               className="mb-2"
               controlId="exampleForm.ControlTextarea1"
-              name="body"
-              onChange={handleInputs}
             >
-              <textarea className="textArea" type="textarea" />
+              <textarea
+                className="textArea"
+                type="textarea"
+                name="body"
+                onChange={handleInputs}
+              />
             </Form.Group>
             <Button className="sendButton" onClick={handleSendMail}>
               Send

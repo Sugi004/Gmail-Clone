@@ -30,21 +30,13 @@ let transporter = async (req, res) => {
   const mail = await auth.decodeToken(token);
 
   let fromUser = mail.email;
-  let recipient = [];
-  let subject;
-  let body;
+  let recipient = req.body.to;
+  let subject = req.body.subject;
+  let body = req.body.body;
   let date = new Date().toTimeString().split(" ")[0];
-  let requestReceived = req.body.sentMails;
+  let requestReceived = req.body;
 
   // Destructuring the received objects
-
-  requestReceived.forEach((e) => {
-    e.to.forEach((e) => {
-      return recipient.push(e);
-    });
-    subject = e.subject;
-    body = e.body;
-  });
 
   const message = {
     from: fromUser,
@@ -55,8 +47,10 @@ let transporter = async (req, res) => {
   };
 
   const validateEmail = (e) => {
-    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return e.every((email) => emailPattern.test(email));
+    var emailPattern =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:[;,][a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})*$/;
+
+    return emailPattern.test(e);
   };
   // Check if the Email is Valid
 

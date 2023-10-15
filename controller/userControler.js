@@ -75,7 +75,7 @@ const loginUser = async (req, res) => {
           email: user.email
         });
         res.cookie("accessToken", token, {
-          expire: new Date() + 8600000,
+          expire: new Date() + 86400000,
           sameSite: "none",
           secure: true
         });

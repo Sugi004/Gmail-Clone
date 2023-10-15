@@ -8,37 +8,29 @@ const smtpServer = require("./controller/smtpController");
 const cookieParser = require("cookie-parser");
 
 const smtpPort = process.env.smtpPort || 25;
-const port = process.env.PORT;
+const port = process.env.PORT || 8000;
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      "https://gmail-clone-fe--lambent-cascaron-86ce02.netlify.app",
-      "http://localhost:5173"
+      "http://localhost:5173",
+      "https://gmail-clone-fe--lambent-cascaron-86ce02.netlify.app"
     ],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    preflightContinue: true,
+    accessControlMaxAge: 7200,
+    accessControlAllowHeaders: "Content-Type, *",
     credentials: true
   })
 );
-app.use(function (req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin: https://gmail-clone-fe--lambent-cascaron-86ce02.netlify.app"
-  );
-  res.header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
-  res.header(
-    "Access-Control-Allow-Header",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.header("Access-Control-Allow-Credentials: true");
-  res.header("Access-Control-Allow-Headers: Content-Type, *");
-  next();
-});
-app.use(cookieParser());
+
 app.use("/", routes);
 
 smtpServer.listen(smtpPort, () => {
   console.log(`SMTP server is listening on ${smtpPort}`);
 });
 app.listen(port, () => {
-  `App is running on ${port}`;
+  console.log(`App is running on ${port}`);
 });

@@ -12,7 +12,7 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://gmail-clone-f6s7.onrender.com/",
+    origin: "https://gmail-clone-f6s7.onrender.com/login",
     credentials: true
   })
 );

@@ -13,7 +13,10 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "https://gmail-clone-fe--lambent-cascaron-86ce02.netlify.app",
+      "http://localhost:5173"
+    ],
     credentials: true
   })
 );

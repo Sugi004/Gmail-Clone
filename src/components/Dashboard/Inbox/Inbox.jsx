@@ -23,7 +23,7 @@ function Inbox() {
   const navigate = useNavigate();
   const initialOpenedMails = JSON.parse(localStorage.getItem("openedMails"));
   const [openedMail, setOpenedMail] = useState(initialOpenedMails);
-
+  console.log("openMail", openedMail);
   // Check error while fetching data
   if (isError) {
     toast.error("Error fetching data, please retry");

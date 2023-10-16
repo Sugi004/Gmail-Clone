@@ -13,6 +13,7 @@ function UserContext({ children }) {
     let res = await axios.get(`${import.meta.env.VITE_API_URL}`, {
       withCredentials: true
     });
+
     return res.data;
   };
 

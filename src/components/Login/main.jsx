@@ -7,6 +7,7 @@ import Loaders from "../../LoaderComponents/Loaders";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
+import Cookies from "js-cookie";
 function Login() {
   let [inputs, setInputs] = useState({
     email: "",
@@ -30,6 +31,12 @@ function Login() {
       );
 
       if (res.status === 200) {
+        Cookies.set("accessToken", res.data.token, {
+          expires: 3600,
+          path: "/"
+        });
+
+        console.log(Cookies.get("accessToken"));
         toast.success(res.data.message, {
           autoClose: 500
         });

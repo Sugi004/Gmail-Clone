@@ -26,12 +26,14 @@ const decodeToken = async (token) => {
 const validate = async (req, res, next) => {
   try {
     let { cookies } = req;
+
+    console.log(cookies);
     // Check Cookie is present or not
     if (cookies.accessToken) {
       // Cookie is present
       next();
     } else {
-      res.status(400).send({ message: "Unauthorized Access" });
+      res.status(401).send({ message: "Unauthorized Access" });
     }
   } catch (error) {
     res.status(500).send({ errorMessage: error.message });

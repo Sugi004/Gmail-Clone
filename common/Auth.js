@@ -26,8 +26,6 @@ const decodeToken = async (token) => {
 const validate = async (req, res, next) => {
   try {
     let { cookies } = req;
-
-    console.log(cookies);
     // Check Cookie is present or not
     if (cookies.accessToken) {
       // Cookie is present

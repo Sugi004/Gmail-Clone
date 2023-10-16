@@ -7,10 +7,10 @@ function useAuth() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(token);
     if (!token) {
       navigate("/login");
       toast.error("Session Expired", { autoClose: 1000 });
-      console.log("hello");
     }
   }, []);
 }

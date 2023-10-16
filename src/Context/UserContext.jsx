@@ -10,7 +10,7 @@ function UserContext({ children }) {
   const queryClient = useQueryClient();
 
   const getInboxMails = async () => {
-    let res = await axios.get("http://localhost:8000", {
+    let res = await axios.get(`${import.meta.env.VITE_API_URL}`, {
       withCredentials: true
     });
     return res.data;

@@ -50,10 +50,10 @@ const smtpServer = new SMTPServer({
 
         // Listen for data and concatenate it to the data field
         mailParser.on("data", (data) => {
-          if (data) {
-            emailObject.body += data.text.replace(/\n/g, "");
+          if (data.type === "text" && !data.text) {
+            emailObject.body += "";
           } else {
-            return;
+            emailObject.body += data.text.replace(/\n/g, "");
           }
         });
 

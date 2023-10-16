@@ -21,8 +21,7 @@ function Inbox() {
   } = useContext(UseContext);
 
   const navigate = useNavigate();
-  const initialOpenedMails =
-    JSON.parse(localStorage.getItem("openedMails")) || [];
+  const initialOpenedMails = JSON.parse(localStorage.getItem("openedMails"));
   const [openedMail, setOpenedMail] = useState(initialOpenedMails);
 
   // Check error while fetching data
@@ -36,6 +35,7 @@ function Inbox() {
       setOpenedMail((prevOpenedMaills) => {
         if (prevOpenedMaills.includes(id)) {
           localStorage.setItem("openedMails", JSON.stringify(openedMail));
+
           return prevOpenedMaills;
         } else {
           return [...prevOpenedMaills, id];

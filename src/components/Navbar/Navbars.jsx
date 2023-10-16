@@ -16,6 +16,8 @@ function Navbars() {
         withCredentials: true
       });
       if (res.status === 200) {
+        localStorage.removeItem("accessToken");
+
         navigate("/login");
         toast.success("Signed out Successfully", { autoClose: 600 });
       }

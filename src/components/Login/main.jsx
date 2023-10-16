@@ -7,7 +7,7 @@ import Loaders from "../../LoaderComponents/Loaders";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
-import { Cookies } from "js-cookie";
+import Cookies from "js-cookie";
 
 function Login() {
   let [inputs, setInputs] = useState({

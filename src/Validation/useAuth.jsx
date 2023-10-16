@@ -12,7 +12,7 @@ function useAuth() {
       navigate("/login");
       toast.error("Session Expired", { autoClose: 1000 });
     }
-  }, []);
+  }, [navigate, token]);
 }
 
 export default useAuth;

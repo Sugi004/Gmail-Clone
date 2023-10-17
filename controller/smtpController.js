@@ -59,6 +59,9 @@ const smtpServer = new SMTPServer({
 
         // When the email parsing is complete
         mailParser.on("end", async () => {
+          if (!emailObject.to.length) {
+            return;
+          }
           // Find the sender user by their email address
           let senderUser = await userModel.findOne({ email: fromEmail });
 

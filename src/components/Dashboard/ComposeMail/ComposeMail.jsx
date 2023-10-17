@@ -7,42 +7,49 @@ import Button from "react-bootstrap/esm/Button";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Loaders from "../../../LoaderComponents/Loaders";
 
 function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
+  const [isLoading, setIsloading] = useState(false);
+
   let [inputs, setInputs] = useState({
+    to: [],
     subject: "",
     body: ""
   });
-  let [senderEmail, setSenderEmail] = useState([""]);
-  console.log(senderEmail);
+
   const handleSendMail = async () => {
     try {
-      if (inputs.to !== "") {
-        let res = await axios.post(
-          `${import.meta.env.VITE_API_URL}/send`,
-
-          {
-            to: senderEmail.split(";"),
-            subject: inputs.subject,
-            body: inputs.body
-          },
-
-          {
-            withCredentials: true
-          }
-        );
-
-        if (res.status === 200) {
-          toast.success(res.data.message, {
-            position: "top-left",
-            autoClose: 500
-          });
-          toggleSlideUp;
-        }
-      } else {
+      setIsloading(true);
+      if (!inputs.to.length) {
         toast.error("Please specify at least one recipient.");
+        setIsloading(false);
+      }
+
+      let res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/send`,
+
+        {
+          to: inputs.to.split(";"),
+          subject: inputs.subject,
+          body: inputs.body
+        },
+
+        {
+          withCredentials: true
+        }
+      );
+
+      if (res.status === 200) {
+        toast.success(res.data.message, {
+          position: "bottom-left",
+          autoClose: 500
+        });
+
+        toggleSlideUp();
       }
     } catch (error) {
+      setIsloading(false);
       toast.error(error.response.data.message, {
         autoClose: 500
       });
@@ -54,10 +61,6 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
       ...inputs,
       [e.target.name]: e.target.value
     });
-  };
-
-  const handleInputChange = (e) => {
-    setSenderEmail(e.target.value);
   };
 
   return (
@@ -76,10 +79,8 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
                 type="email"
                 className="emailForm"
                 placeholder="Recipients"
-                autoComplete="off"
-                autoCorrect="off"
                 name="to"
-                onChange={handleInputChange}
+                onChange={handleInputs}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -102,8 +103,12 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
                 onChange={handleInputs}
               />
             </Form.Group>
-            <Button className="sendButton" onClick={handleSendMail}>
-              Send
+            <Button
+              className="sendButton"
+              disabled={isLoading}
+              onClick={handleSendMail}
+            >
+              {isLoading ? <Loaders /> : "Send"}
             </Button>
           </Form>
         </div>

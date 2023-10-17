@@ -28,7 +28,7 @@ function Sent() {
 
     if (res.status === 200) {
       const data = res.data.sentMail.sentMails[0];
-      navigate(`/mails/${id}`, { state: data });
+      navigate(`/mails/sent/${id}`, { state: data });
     }
   };
 

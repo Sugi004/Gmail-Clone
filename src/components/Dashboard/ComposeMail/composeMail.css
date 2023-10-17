@@ -1,17 +1,16 @@
 .slide-up-component.active {
   bottom: 0;
   right: 7%;
-  transition: slide-up 0.3s ease-in-out;
+
   border-radius: 20px 20px 0 0; /* Slide up to the screen */
 }
 .slide-up-component {
   position: fixed;
-  bottom: -100%; /* Start off-screen */
-  right: 10%;
+
   background-color: white;
   border-top: 1px solid #ccc;
-
-  z-index: 999;
+  transition: slide-up 10 s ease-in-out;
+  z-index: 1;
 }
 
 @keyframes slide-up {
@@ -21,13 +20,13 @@
   }
   100% {
     transform: translateY(100%);
-    opacity: 1;
+    opacity: 2;
   }
 }
 
 .content {
-  height: 70vh;
-  width: 90vh;
+  height: 60vh;
+  width: 70vh;
   padding: 10px;
 }
 
@@ -68,5 +67,5 @@
 }
 .sendButton {
   width: 100px;
-  height: 40px;
+  height: 50px;
 }

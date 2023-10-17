@@ -7,7 +7,8 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Inbox from "./components/Dashboard/Inbox/Inbox";
 import Sent from "./components/Dashboard/Sent/Sent";
 import UserContext from "./Context/UserContext";
-import MailViewPage from "./components/Dashboard/Mail view/MailViewPage";
+import InboxMailViewPage from "./components/Dashboard/Mail view/InboxMailViewPage";
+import SentboxMailViewPage from "./components/Dashboard/Mail view/SentboxMailViewPage";
 
 function App() {
   return (
@@ -35,10 +36,18 @@ function App() {
               }
             />
             <Route
-              path=":id"
+              path="inbox/:id"
               element={
                 <UserContext>
-                  <MailViewPage />
+                  <InboxMailViewPage />
+                </UserContext>
+              }
+            />
+            <Route
+              path="sent/:id"
+              element={
+                <UserContext>
+                  <SentboxMailViewPage />
                 </UserContext>
               }
             />

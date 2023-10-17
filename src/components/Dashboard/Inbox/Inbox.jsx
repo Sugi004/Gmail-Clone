@@ -34,14 +34,14 @@ function Inbox() {
   // Open the mail using ID and also store the status of mail whether it's already opened using Local Storage
   const handleOpenMail = async (id) => {
     try {
-      setOpenedMail((prevOpenedMaills) => {
-        if (!prevOpenedMaills.includes(id)) {
+      setOpenedMail((prevOpenedMails) => {
+        if (prevOpenedMails.includes(id)) {
+          return prevOpenedMails;
+        } else {
           localStorage.setItem(
             "openedMails",
-            JSON.stringify([...prevOpenedMaills, id])
+            JSON.stringify([...prevOpenedMails, id])
           );
-
-          return prevOpenedMaills;
         }
       });
 
@@ -54,7 +54,7 @@ function Inbox() {
 
       if (res.status === 200) {
         const data = res.data.recievedMail.receivedMails[0];
-        navigate(`/mails/${id}`, { state: data });
+        navigate(`/mails/inbox/${id}`, { state: data });
       }
     } catch (error) {
       toast.error("Error opening the mail");
@@ -82,7 +82,6 @@ function Inbox() {
                       <tr
                         key={i}
                         className={openedMail.includes(e._id) ? "opened " : ""}
-                        onClick={() => handleOpenMail(e._id)}
                       >
                         <td className="checkbox-cell">
                           <input type="checkbox" />

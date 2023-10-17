@@ -20,15 +20,12 @@
 }
 
 .section {
-  flex: 0.3cap;
   margin-left: 190px;
   min-width: calc(100vw - 18%);
   max-width: 100%;
-
   overflow: auto;
-  /* flex-grow: 1; */
   height: calc(100vh - 100px);
-  max-height: 100vh !important;
+  max-height: 100vh;
   padding-top: 5px;
   padding-right: 15px;
   background-color: white;
@@ -39,12 +36,12 @@
   float: left;
   max-height: 100vh;
 }
-
 .main-wrapper {
   min-height: 100%;
+  width: 100%;
+  height: 100%;
   position: relative;
 }
-
 .wl,
 .wn,
 .wq,
@@ -60,11 +57,12 @@
 }
 @media screen and (max-width: 1024px) {
   .custom-layout {
-    width: 1024px;
+    width: 100vh;
   }
 
   .section {
     width: 800px !important;
+    height: 2000px;
   }
 }
 

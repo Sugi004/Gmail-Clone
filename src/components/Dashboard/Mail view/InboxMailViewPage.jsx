@@ -3,7 +3,7 @@ import "./mailView.css";
 import { UseContext } from "../../../Context/UserContext";
 import { useContext } from "react";
 import profile from "../../../assets/Images/profile.png";
-function MailViewPage() {
+function InboxMailViewPage() {
   const location = useLocation();
   const mailData = location.state;
   const { parsingData, formatDate } = useContext(UseContext);
@@ -32,9 +32,7 @@ function MailViewPage() {
               }}
             >
               <tbody>
-                <tr
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
+                <tr>
                   <td>
                     <h3 className="fromEmail">
                       <span translate="no" role="gridcell" tabIndex={-1}>
@@ -93,7 +91,7 @@ function MailViewPage() {
   );
 }
 
-export default MailViewPage;
+export default InboxMailViewPage;
 
 {
   /* <td style={{ display: "flex" }}>

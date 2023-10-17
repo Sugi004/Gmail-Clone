@@ -22,6 +22,11 @@ function Inbox() {
 
   const navigate = useNavigate();
 
+  if (!localStorage.getItem("openedMails")) {
+    // Set an empty array in localStorage only if it doesn't exist
+    localStorage.setItem("openedMails", JSON.stringify([]));
+  }
+
   const initialOpenedMails =
     JSON.parse(localStorage.getItem("openedMails")) || [];
   const [openedMail, setOpenedMail] = useState(initialOpenedMails);
@@ -36,12 +41,13 @@ function Inbox() {
     try {
       setOpenedMail((prevOpenedMails) => {
         if (prevOpenedMails.includes(id)) {
-          return prevOpenedMails;
+          return [prevOpenedMails];
         } else {
           localStorage.setItem(
             "openedMails",
             JSON.stringify([...prevOpenedMails, id])
           );
+          return [...prevOpenedMails, id];
         }
       });
 
@@ -100,7 +106,15 @@ function Inbox() {
                           {parsingData(e.from)}
                         </td>
                         <td onClick={() => handleOpenMail(e._id)}>
-                          <span>{e.subject ? e.subject : "(no-subject)"}</span>
+                          <span
+                            className={
+                              openedMail.includes(e._id)
+                                ? "normalFont"
+                                : "boldFont"
+                            }
+                          >
+                            {e.subject ? e.subject : "(no-subject)"}
+                          </span>
                           &nbsp; - <span>{e.body}</span>
                         </td>
 

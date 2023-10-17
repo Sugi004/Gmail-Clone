@@ -5,12 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import ComposeMail from "../Dashboard/ComposeMail/ComposeMail";
-// import Form from "react-bootstrap/Form";
-// import Button from "react-bootstrap/esm/Button";
 
 function Sidebar() {
   const [currentMailBox, setcurrentMailBox] = useState("");
   const [istoggleVisibile, setToggleVisibility] = useState(false);
+
   const navigate = useNavigate();
   useEffect(() => {
     const storedPage = localStorage.getItem("currentMailBox");

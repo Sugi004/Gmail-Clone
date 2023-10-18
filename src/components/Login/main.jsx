@@ -7,6 +7,7 @@ import Loaders from "../../LoaderComponents/Loaders";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
+import Cookies from "js-cookie";
 
 function Login() {
   let [inputs, setInputs] = useState({
@@ -32,13 +33,15 @@ function Login() {
 
       if (res.status === 200) {
         // Store the access Token inorder to Validate the Session
-        localStorage.setItem("accessToken", res.data.token);
+        Cookies.set("accessToken", res.data.token, {
+          expires: new Date() + 3600000
+        });
         localStorage.setItem("currentMailBox", "inbox");
         // Trigger setTimeout to remove the item in 1 hour.
         setTimeout(() => {
           if (localStorage.getItem("accessToken"))
             localStorage.removeItem("accessToken");
-        }, 3600000);
+        }, 3600);
 
         toast.success(res.data.message, {
           autoClose: 500

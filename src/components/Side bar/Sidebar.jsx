@@ -26,7 +26,7 @@ function Sidebar() {
       <div className="sideBar-wrapper">
         <div>
           <button className="button" onClick={toggleSlideUp}>
-            <FontAwesomeIcon icon={faPen} size="2xl" bounce /> &nbsp; Compose
+            <FontAwesomeIcon icon={faPen} size="2xl" /> &nbsp; Compose
           </button>
         </div>
         <ul>

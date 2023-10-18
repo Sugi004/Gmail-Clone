@@ -7,6 +7,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function Navbars() {
   const navigate = useNavigate();
@@ -16,8 +17,7 @@ function Navbars() {
         withCredentials: true
       });
       if (res.status === 200) {
-        localStorage.removeItem("accessToken");
-
+        Cookies.remove("accessToken");
         navigate("/login");
         toast.success("Signed out Successfully", { autoClose: 600 });
       }

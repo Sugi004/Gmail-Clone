@@ -33,7 +33,9 @@ function Login() {
 
       if (res.status === 200) {
         // Store the access Token inorder to Validate the Session
-        Cookies.set("accessToken", res.data.token);
+        Cookies.set("accessToken", res.data.token, {
+          expires: new Date() + 3600000
+        });
 
         localStorage.setItem("currentMailBox", "inbox");
 

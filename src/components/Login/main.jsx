@@ -33,15 +33,13 @@ function Login() {
 
       if (res.status === 200) {
         // Store the access Token inorder to Validate the Session
-        Cookies.set("accessToken", res.data.token, {
-          expires: new Date() + 3600000
-        });
+        Cookies.set("accessToken", res.data.token);
+        console.log(Cookies.get("accessToken"));
         localStorage.setItem("currentMailBox", "inbox");
         // Trigger setTimeout to remove the item in 1 hour.
         setTimeout(() => {
-          if (localStorage.getItem("accessToken"))
-            localStorage.removeItem("accessToken");
-        }, 3600);
+          localStorage.removeItem("accessToken");
+        }, 3600000);
 
         toast.success(res.data.message, {
           autoClose: 500

@@ -10,7 +10,7 @@ import UserContext from "./Context/UserContext";
 import InboxMailViewPage from "./components/Dashboard/Mail view/InboxMailViewPage";
 import SentboxMailViewPage from "./components/Dashboard/Mail view/SentboxMailViewPage";
 import StarredMailViewPage from "./components/Dashboard/Mail view/StarredMailViewPage";
-import StarredMails from "./components/Dashboard/StarredMails/starredMails";
+import StarredMails from "./components/Dashboard/StarredMails/StarredMails";
 
 function App() {
   return (

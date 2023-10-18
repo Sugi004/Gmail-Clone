@@ -8,6 +8,7 @@
   height: 100vh;
   overflow: auto;
   left: 0;
+  margin-top: 20px;
 }
 
 .sideBar-wrapper li {
@@ -40,7 +41,7 @@
 
 .button {
   width: 150px !important;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-left: 15px;
   margin-bottom: 20px;
   height: 55px;
@@ -49,8 +50,23 @@
   border: none !important;
   color: black !important;
   font-size: 14px;
+  height: 70px;
 }
 .button:hover {
   background-color: #45aaf2;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.newMailWrapper {
+  position: fixed;
+  right: 10%;
+  animation: slide-up 5s ease-in;
+}
+@keyframes slide-up {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
 }

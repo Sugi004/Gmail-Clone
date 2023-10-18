@@ -68,7 +68,7 @@ function Sidebar() {
           </li>
         </ul>
       </div>
-      <div>
+      <div className="newMailWrapper">
         {istoggleVisibile ? (
           <ComposeMail
             toggleSlideUp={toggleSlideUp}

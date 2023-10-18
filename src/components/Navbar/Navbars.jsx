@@ -1,4 +1,5 @@
 import logo from "../../assets/Images/Gmail-Emblem.png";
+import profile from "../../assets/Images/profile.png";
 import "./Navbar.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -8,9 +9,18 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useContext, useState } from "react";
+import { UseContext } from "../../Context/UserContext";
+import { Image } from "react-bootstrap";
 
 function Navbars() {
+  const [showProfileDetails, setShowProfileDetails] = useState(false);
+  const { data } = useContext(UseContext);
+  const toggleProfileDetails = () => {
+    setShowProfileDetails(!showProfileDetails);
+  };
   const navigate = useNavigate();
+
   const handleSignOut = async () => {
     try {
       let res = await axios.get(`${import.meta.env.VITE_API_URL}/sign-out`, {
@@ -27,7 +37,7 @@ function Navbars() {
   };
   return (
     <>
-      <div className="container-fluid header">
+      <div className="container-fluid">
         <span>
           <img src={logo} />
         </span>
@@ -39,11 +49,28 @@ function Navbars() {
             placeholder="Search mail"
             aria-label="Search"
           />
-          <Button id="signOutButton" onClick={handleSignOut}>
-            Sign Out
-          </Button>
         </Form>
+
+        <Image src={profile} className="img" onClick={toggleProfileDetails} />
+        {/* <div
+          className={`profile-container ${showProfileDetails ? "open" : ""}`}
+        > */}
+        {showProfileDetails && (
+          <div className="profile-details">
+            <p>
+              Name: &nbsp;
+              {data.data[0].firstName.toUpperCase() +
+                " " +
+                data.data[0].lastName.toUpperCase()}
+            </p>
+            <p>Email:&nbsp; {data.data[0].email}</p>
+            <Button variant="danger" id="signOutButton" onClick={handleSignOut}>
+              Sign Out
+            </Button>
+          </div>
+        )}
       </div>
+      {/* </div> */}
     </>
   );
 }

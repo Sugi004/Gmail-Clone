@@ -1,33 +1,32 @@
 .slide-up-component.active {
   bottom: 0;
   right: 7%;
-
-  border-radius: 20px 20px 0 0; /* Slide up to the screen */
-}
-.slide-up-component {
-  position: fixed;
-
-  background-color: white;
-  border-top: 1px solid #ccc;
-  transition: slide-up 10 s ease-in-out;
-  z-index: 1;
+  border-radius: 20px 20px 0 0;
+  animation: slide 0.5s ease-in-out;
 }
 
-@keyframes slide-up {
+@keyframes slide {
   0% {
-    transform: translateY(0);
-    opacity: 0;
+    transform: translateY(100%);
   }
   100% {
-    transform: translateY(100%);
-    opacity: 2;
+    transform: translateY(0);
   }
+}
+
+.slide-up-component {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  background-color: white;
+  border-top: 1px solid #ccc;
 }
 
 .content {
-  height: 60vh;
-  width: 70vh;
+  height: 35rem;
+  width: 35rem;
   padding: 10px;
+  position: relative;
 }
 
 .composeMail-title {
@@ -45,7 +44,7 @@
   width: 100%;
   border: 0;
   border-bottom: 1px solid rgb(168, 167, 167);
-  font-size: small;
+  font-size: medium;
 }
 
 .emailForm:focus {
@@ -56,8 +55,8 @@
 
 .textArea {
   width: 100%;
-  height: 21em;
-  font-size: small;
+  height: 18rem;
+  font-size: medium;
   border: none;
   resize: none;
 }

@@ -3,7 +3,7 @@ import Sidebar from "../Side bar/Sidebar";
 import { Outlet } from "react-router-dom";
 import "./index.css";
 import useAuth from "../../Validation/useAuth";
-
+import UserContext from "../../Context/UserContext";
 function Dashboard() {
   // Validating cookies,calling it here as it's a nested routes
   useAuth();
@@ -20,11 +20,12 @@ function Dashboard() {
         </div>
         <div tabIndex={0}></div>
         <div className="custom-layout ">
-          <div className="side-wrapper">
+          <UserContext>
             <Navbars />
+          </UserContext>
+          <div className="side-wrapper">
             <Sidebar />
           </div>
-
           <div className="section-wrapper section">
             <Outlet />
           </div>

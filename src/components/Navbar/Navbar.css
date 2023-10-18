@@ -1,7 +1,7 @@
 img {
-  height: 60px;
+  height: 70px;
   width: 120px;
-  margin-left: 0;
+  margin-left: 30px;
 }
 
 .title {
@@ -11,17 +11,16 @@ img {
   font-family: sans-serif;
   margin-top: 15px;
 }
-.container-fluid .header {
+.container-fluid {
   display: flex;
-  position: relative;
+  flex-flow: row;
+  width: 100vh;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 10px;
+  justify-content: space-between;
 }
-.container-fluid .d-flex {
-  margin: 10px auto auto 10%;
-  width: 50%;
-  position: absolute;
-  top: 0;
-  left: 30vh !important;
-}
+
 .d-flex > input[type="search"] {
   height: 50px;
   font-family: sans-serif;
@@ -37,6 +36,7 @@ img {
   transform: translateX(-50px);
   cursor: pointer;
   background-color: rgba(189, 232, 240, 0.822);
+  width: 50rem;
 }
 
 .icon {
@@ -55,7 +55,41 @@ img {
 #signOutButton {
   width: 150px;
   height: 40px;
-  margin: 0;
-  margin-top: 5px;
-  margin-left: 30px;
+  margin: 30px 0px 0px 70px;
+}
+.img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+
+  cursor: pointer;
+  margin-right: 30px;
+}
+.profile-details {
+  position: absolute;
+  top: 77px;
+  right: 70px;
+  height: 200px;
+  background: rgba(189, 232, 240, 0.822);
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.profile-details {
+  height: auto;
+  animation: slide-downn 0.5s ease-out;
+}
+@keyframes slide-downn {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.profile-details > p {
+  margin: 10px;
 }

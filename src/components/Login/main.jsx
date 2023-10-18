@@ -7,9 +7,15 @@ import Loaders from "../../LoaderComponents/Loaders";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
+
 import Cookies from "js-cookie";
 
 function Login() {
+  // Setting expiration for Cookies
+  let expirationDate = new Date();
+  expirationDate.setTime(expirationDate.getTime() + 60 * 60 * 1000);
+
+  // States for getting inputs
   let [inputs, setInputs] = useState({
     email: "",
     password: ""
@@ -34,7 +40,7 @@ function Login() {
       if (res.status === 200) {
         // Store the access Token inorder to Validate the Session
         Cookies.set("accessToken", res.data.token, {
-          expires: 3600
+          expires: expirationDate
         });
 
         localStorage.setItem("currentMailBox", "inbox");

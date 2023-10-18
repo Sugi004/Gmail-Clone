@@ -58,8 +58,8 @@ img {
   margin: 30px 0px 0px 70px;
 }
 .img {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 
   cursor: pointer;
@@ -67,10 +67,11 @@ img {
 }
 .profile-details {
   position: absolute;
+
   top: 77px;
   right: 70px;
   height: 200px;
-  background: rgba(189, 232, 240, 0.822);
+  background-color: rgba(189, 232, 240, 0.822);
   border: 1px solid #ccc;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

@@ -1,4 +1,5 @@
 import Tabs from "./Tabs.jsx";
+
 import "./inbox.css";
 import Loaders from "../../../LoaderComponents/Loaders";
 import { toast } from "react-toastify";
@@ -8,8 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import useAuth from "../../../Validation/useAuth.jsx";
 
 function Inbox() {
+  useAuth();
   const {
     data,
     isLoading,
@@ -22,14 +25,28 @@ function Inbox() {
 
   const navigate = useNavigate();
 
-  if (!localStorage.getItem("openedMails")) {
+  if (
+    !localStorage.getItem("openedMails") &&
+    localStorage.getItem("starredMails")
+  ) {
     // Set an empty array in localStorage only if it doesn't exist
     localStorage.setItem("openedMails", JSON.stringify([]));
+  } else if (
+    !localStorage.getItem("starredMails") &&
+    localStorage.getItem("openedMails")
+  ) {
+    localStorage.setItem("starredMails", JSON.stringify([]));
   }
 
   const initialOpenedMails =
     JSON.parse(localStorage.getItem("openedMails")) || [];
   const [openedMail, setOpenedMail] = useState(initialOpenedMails);
+
+  const starredMails = JSON.parse(localStorage.getItem("starredMails"));
+  const [isStarred, setIsStarred] = useState(starredMails);
+
+  localStorage.setItem("openedMails", JSON.stringify([...openedMail]));
+  localStorage.setItem("starredMails", JSON.stringify([...isStarred]));
 
   // Check error while fetching data
   if (isError) {
@@ -39,17 +56,9 @@ function Inbox() {
   // Open the mail using ID and also store the status of mail whether it's already opened using Local Storage
   const handleOpenMail = async (id) => {
     try {
-      setOpenedMail((prevOpenedMails) => {
-        if (prevOpenedMails.includes(id)) {
-          return [prevOpenedMails];
-        } else {
-          localStorage.setItem(
-            "openedMails",
-            JSON.stringify([...prevOpenedMails, id])
-          );
-          return [...prevOpenedMails, id];
-        }
-      });
+      if (!openedMail.includes(id)) {
+        setOpenedMail([...openedMail, id]);
+      }
 
       const res = await axios.get(
         `${import.meta.env.VITE_API_URL}/mails/${id}`,
@@ -67,6 +76,17 @@ function Inbox() {
     }
   };
 
+  // Code for Star the Mail
+  const handleStarMail = async (id) => {
+    if (isStarred.includes(id)) {
+      const updatedStarredMails = isStarred.filter((Id) => Id !== id);
+      setIsStarred(updatedStarredMails);
+    } else {
+      setIsStarred([...isStarred, id]);
+      localStorage.setItem("starredMails", JSON.stringify([...isStarred]));
+    }
+  };
+
   return (
     <>
       <Tabs />
@@ -76,25 +96,32 @@ function Inbox() {
             <Loaders />
           </div>
         )}
+
         <div className="gmail-table">
           <table>
             <thead></thead>
-            <tbody>
-              {status === "success" &&
-                data.data[0].receivedMails
-                  .sort((a, b) => new Date(b.date) - new Date(a.date))
-                  .map((e, i) => {
-                    return (
+            {status === "success" && data.data[0].receivedMails.length > 0 ? (
+              data.data[0].receivedMails
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .map((e, i) => {
+                  return (
+                    <tbody key={i}>
                       <tr
-                        key={i}
                         className={openedMail.includes(e._id) ? "opened " : ""}
                       >
                         <td className="checkbox-cell">
-                          <input type="checkbox" />
+                          <input type="checkbox" /> &nbsp; &nbsp;
+                          <FontAwesomeIcon
+                            icon={faStar}
+                            className={`starIcon ${
+                              isStarred.includes(e._id) ? "buttonActive" : ""
+                            }
+                            `}
+                            onClick={() => handleStarMail(e._id)}
+                          />
                         </td>
-                        <td>
-                          <FontAwesomeIcon icon={faStar} className="faIcon" />
-                        </td>
+                        <td></td>
+
                         <td
                           className={
                             openedMail.includes(e._id)
@@ -138,9 +165,25 @@ function Inbox() {
                           {formatTime(e.date)}
                         </td>
                       </tr>
-                    );
-                  })}
-            </tbody>
+                    </tbody>
+                  );
+                })
+            ) : (
+              <tr>
+                <td>
+                  <div
+                    style={{
+                      textAlign: "center",
+
+                      fontWeight: 500,
+                      marginTop: "12px"
+                    }}
+                  >
+                    No Mails to display!!!
+                  </div>
+                </td>
+              </tr>
+            )}
           </table>
         </div>
       </div>
@@ -149,3 +192,11 @@ function Inbox() {
 }
 
 export default Inbox;
+
+{
+  /* <div */
+}
+//     style={{ textAlign: "center", fontSize: "30px", fontWeight: 500, marginTop: "120p" }}
+//   >
+//     No mails to display!
+//   </div>

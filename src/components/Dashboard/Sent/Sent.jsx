@@ -44,18 +44,17 @@ function Sent() {
           <table>
             <thead></thead>
             <tbody>
-              {status === "success" &&
+              {status === "success" && data.data[0].sentMails.length > 0 ? (
                 data.data[0].sentMails
                   .sort((a, b) => new Date(b.date) - new Date(a.date))
                   .map((e, i) => {
                     return (
                       <tr key={i}>
                         <td className="checkbox-cell">
-                          <input type="checkbox" />
-                        </td>
-                        <td>
+                          <input type="checkbox" /> &nbsp; &nbsp;
                           <FontAwesomeIcon icon={faStar} className="faIcon" />
                         </td>
+                        <td></td>
                         <td onClick={() => handleOpenMail(e._id)}>
                           To:&nbsp;
                           {e.to.map((e) => {
@@ -87,7 +86,23 @@ function Sent() {
                         </td>
                       </tr>
                     );
-                  })}
+                  })
+              ) : (
+                <tr>
+                  <td>
+                    <div
+                      style={{
+                        textAlign: "center",
+
+                        fontWeight: 500,
+                        marginTop: "12px"
+                      }}
+                    >
+                      No mails Sent!!!
+                    </div>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

@@ -9,6 +9,8 @@ import Sent from "./components/Dashboard/Sent/Sent";
 import UserContext from "./Context/UserContext";
 import InboxMailViewPage from "./components/Dashboard/Mail view/InboxMailViewPage";
 import SentboxMailViewPage from "./components/Dashboard/Mail view/SentboxMailViewPage";
+import StarredMailViewPage from "./components/Dashboard/Mail view/StarredMailViewPage";
+import StarredMails from "./components/Dashboard/StarredMails/starredMails";
 
 function App() {
   return (
@@ -48,6 +50,22 @@ function App() {
               element={
                 <UserContext>
                   <SentboxMailViewPage />
+                </UserContext>
+              }
+            />
+            <Route
+              path="starred"
+              element={
+                <UserContext>
+                  <StarredMails />
+                </UserContext>
+              }
+            />
+            <Route
+              path="starred/:id"
+              element={
+                <UserContext>
+                  <StarredMailViewPage />
                 </UserContext>
               }
             />

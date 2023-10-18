@@ -65,8 +65,9 @@
 }
 
 .checkbox-cell input[type="checkbox"] {
-  border: none !important;
-  outline: none !important;
+  margin-left: 10px;
+  outline: 0;
+  color: #000;
 }
 /* Style for hover effect on table rows */
 .gmail-table tbody tr:hover {
@@ -130,12 +131,19 @@
   font-weight: 400;
 }
 
+.starIcon {
+  color: rgb(182, 178, 178);
+}
+
+.buttonActive {
+  color: rgba(235, 235, 23, 0.986);
+}
 /* Adjust the width's of table*/
-td:nth-child(1) td:nth-child(2) {
-  width: 30px;
+td:nth-child(1) {
+  width: 100px;
 }
 td:nth-child(3) {
-  width: 250px;
+  width: 30px;
 }
 td:nth-child(6) {
   width: 70px;

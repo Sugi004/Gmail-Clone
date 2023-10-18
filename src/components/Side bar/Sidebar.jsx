@@ -10,6 +10,7 @@ function Sidebar() {
   const [currentMailBox, setcurrentMailBox] = useState("");
   const [istoggleVisibile, setToggleVisibility] = useState(false);
 
+  localStorage.setItem("currentMailBox", currentMailBox);
   const navigate = useNavigate();
   useEffect(() => {
     const storedPage = localStorage.getItem("currentMailBox");
@@ -37,12 +38,19 @@ function Sidebar() {
             onClick={() => {
               navigate("/mails/inbox");
               setcurrentMailBox("inbox");
-              localStorage.setItem("currentMailBox", "inbox");
             }}
           >
             Inbox
           </li>
-          <li className="disabled">
+          <li
+            className={
+              currentMailBox === "starred" ? "nav-link collapsed active" : ""
+            }
+            onClick={() => {
+              navigate("/mails/starred");
+              setcurrentMailBox("starred");
+            }}
+          >
             <Link className="nav-link collapsed">Starred</Link>
           </li>
           <li className="disabled">
@@ -58,7 +66,6 @@ function Sidebar() {
             onClick={() => {
               navigate("/mails/sent");
               setcurrentMailBox("sent");
-              localStorage.setItem("currentMailBox", "sent");
             }}
           >
             Sent

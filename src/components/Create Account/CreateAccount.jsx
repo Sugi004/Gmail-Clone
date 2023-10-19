@@ -137,7 +137,7 @@ function CreateAccount() {
                 placeholder="Password"
                 name="password"
                 autoComplete="off"
-                {...formik.getFieldProps("pssword")}
+                {...formik.getFieldProps("password")}
               />
               {formik.touched.password && formik.errors.password ? (
                 <div className="errors">{formik.errors.password}</div>

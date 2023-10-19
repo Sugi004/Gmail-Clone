@@ -17,12 +17,11 @@ function UserContext({ children }) {
     return res.data;
   };
 
-  const { data, isError, isLoading, status } = useQuery(
+  const { data, isError, isInitialLoading, status } = useQuery(
     "mails",
     getInboxMails,
     {
-      refetchInterval: 10000,
-      refetchIntervalInBackground: 60000
+      refetchInterval: 60000
     }
   );
 
@@ -94,7 +93,7 @@ function UserContext({ children }) {
       <UseContext.Provider
         value={{
           data,
-          isLoading,
+          isInitialLoading,
           status,
           parsingData,
           isError,

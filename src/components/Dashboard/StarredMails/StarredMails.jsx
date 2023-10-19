@@ -18,26 +18,34 @@ function StarredMails() {
   let sentMail;
   let inboxStarData = [];
   let sentBoxStarData = [];
+
   if (status === "success") {
     inboxMail = data.data[0].receivedMails;
     sentMail = data.data[0].sentMails;
+  } else {
+    console.log("null");
+  }
 
-    if (inboxMail.length > 0) {
+  if (
+    (inboxMail && inboxMail.length > 0) ||
+    (sentMail && sentMail.length > 0)
+  ) {
+    if (inboxMail && inboxMail.length > 0) {
       for (let e of inboxMail) {
         if (starredMail.includes(e._id)) {
           inboxStarData.push(e);
         }
       }
     }
-    if (sentMail.length > 0) {
+    if (sentMail && sentMail.length > 0) {
       for (let e of sentMail) {
         if (starredMail.includes(e._id)) {
           sentBoxStarData.push(e);
         }
       }
-    } else {
-      return;
     }
+  } else {
+    console.log("No mails");
   }
 
   const handleOpenStarredMail = async (id) => {
@@ -191,7 +199,7 @@ function StarredMails() {
                     })
                 : ""}
               {!inboxStarData.length && !sentBoxStarData.length ? (
-                <tr>
+                <tr className="starRow">
                   <td>
                     <div
                       style={{

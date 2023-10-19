@@ -35,7 +35,7 @@
   background-color: rgba(82, 210, 233, 0.349);
   display: flex;
   justify-content: space-between;
-  font-size: small;
+  font-size: 1rem;
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
 }

@@ -12,7 +12,7 @@ function InboxMailViewPage() {
     <>
       <div>
         <div className="subject-wrapper">
-          {mailData.subject ? mailData.subject : "(no-subject)"}
+          {mailData ? mailData.subject : "(no-subject)"}
         </div>
       </div>
       <div style={{ margin: 0, display: "flex" }}>

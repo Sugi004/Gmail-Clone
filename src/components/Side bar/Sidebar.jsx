@@ -2,15 +2,21 @@ import "./sidebar.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPen,
+  faImage,
+  faStar,
+  faCalendarTimes,
+  faFile,
+  faRocket
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import ComposeMail from "../Dashboard/ComposeMail/ComposeMail";
 
 function Sidebar() {
-  const [currentMailBox, setcurrentMailBox] = useState("");
+  const [currentMailBox, setcurrentMailBox] = useState();
   const [istoggleVisibile, setToggleVisibility] = useState(false);
 
-  localStorage.setItem("currentMailBox", currentMailBox);
   const navigate = useNavigate();
   useEffect(() => {
     const storedPage = localStorage.getItem("currentMailBox");
@@ -38,9 +44,13 @@ function Sidebar() {
             onClick={() => {
               navigate("/mails/inbox");
               setcurrentMailBox("inbox");
+              localStorage.setItem("currentMailBox", "inbox");
             }}
           >
-            Inbox
+            <span>
+              <FontAwesomeIcon icon={faImage} className="sideIcon" /> &nbsp;
+              &nbsp; Inbox
+            </span>
           </li>
           <li
             className={
@@ -49,15 +59,22 @@ function Sidebar() {
             onClick={() => {
               navigate("/mails/starred");
               setcurrentMailBox("starred");
+              localStorage.setItem("currentMailBox", "starred");
             }}
           >
-            <Link className="nav-link collapsed">Starred</Link>
+            <Link className="nav-link collapsed">
+              <FontAwesomeIcon icon={faStar} /> &nbsp; &nbsp; Starred
+            </Link>
           </li>
           <li className="disabled">
-            <Link className="nav-link collapsed ">Snoozed</Link>
+            <Link className="nav-link collapsed ">
+              <FontAwesomeIcon icon={faCalendarTimes} /> &nbsp; &nbsp; Snoozed
+            </Link>
           </li>
           <li className="disabled">
-            <Link className="nav-link collapsed">Important</Link>
+            <Link className="nav-link collapsed">
+              <FontAwesomeIcon icon={faPen} /> &nbsp; &nbsp; Important
+            </Link>
           </li>
           <li
             className={
@@ -66,12 +83,19 @@ function Sidebar() {
             onClick={() => {
               navigate("/mails/sent");
               setcurrentMailBox("sent");
+              localStorage.setItem("currentMailBox", "sent");
             }}
           >
-            Sent
+            <Link className="nav-link collapsed">
+              <FontAwesomeIcon icon={faRocket} /> &nbsp; &nbsp;
+              <span> Sent</span>
+            </Link>
           </li>
           <li className="disabled">
-            <Link className="nav-link collapsed">Drafts</Link>
+            <Link className="nav-link collapsed">
+              <FontAwesomeIcon icon={faFile} />
+              &nbsp; &nbsp; &nbsp; Drafts
+            </Link>
           </li>
         </ul>
       </div>

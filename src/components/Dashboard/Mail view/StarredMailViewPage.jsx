@@ -12,11 +12,15 @@ function StarredMailViewPage() {
   let inbox = mailData.recievedMail.receivedMails[0];
   let sentBox = mailData.sentMail.sentMails[0];
 
+  console.log(inbox, sentBox);
+
   return (
     <>
       <div>
         <div className="subject-wrapper">
-          {mailData.subject ? mailData.subject : "(no-subject)"}
+          {(inbox && inbox.subject) ||
+            (sentBox && sentBox.subject) ||
+            "(no-subject)"}
         </div>
       </div>
 

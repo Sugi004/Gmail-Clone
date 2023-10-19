@@ -87,3 +87,8 @@
   background: #1f0808;
   border-radius: 50px;
 }
+
+.starRow:hover {
+  background-color: white !important;
+  box-shadow: none !important;
+}

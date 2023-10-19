@@ -117,3 +117,12 @@ td:nth-child(6) {
 td:nth-child(3) {
   width: 300px;
 }
+
+.noDataRow:hover {
+  box-shadow: none !important;
+  background-color: white !important;
+}
+
+.noDataRow {
+  background-color: white;
+}

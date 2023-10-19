@@ -110,12 +110,12 @@ function Sent() {
                     );
                   })
               ) : (
-                <tr>
+                <tr className="noDataRow">
                   <td>
                     <div
                       style={{
                         textAlign: "center",
-
+                        fontSize: "17px",
                         fontWeight: 500,
                         marginTop: "12px"
                       }}

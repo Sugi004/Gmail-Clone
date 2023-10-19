@@ -68,7 +68,11 @@ function ComposeMail({ toggleSlideUp, istoggleVisibile }) {
       <div className="composeMail-title">
         New Message
         <div>
-          <FontAwesomeIcon icon={faXmark} onClick={toggleSlideUp} />
+          <FontAwesomeIcon
+            icon={faXmark}
+            onClick={toggleSlideUp}
+            style={{ cursor: "pointer" }}
+          />
         </div>
       </div>
       <div className="content">

@@ -105,7 +105,7 @@ function SentboxMailViewPage() {
           </div>
         </div>
       </div>
-      <div style={{ padding: "50px 50px 20px 60px" }}>{mailData.body}</div>
+      <div style={{ padding: "30px 50px 20px 70px" }}>{mailData.body}</div>
     </>
   );
 }

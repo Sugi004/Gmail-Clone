@@ -9,10 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import useAuth from "../../../Validation/useAuth.jsx";
 
 function Inbox() {
-  useAuth();
   const {
     data,
     isLoading,
@@ -42,12 +40,22 @@ function Inbox() {
     JSON.parse(localStorage.getItem("openedMails")) || [];
   const [openedMail, setOpenedMail] = useState(initialOpenedMails);
 
+  localStorage.setItem("openedMails", JSON.stringify([...openedMail]));
+  // localStorage.setItem("starredMails", JSON.stringify([...isStarred]));
+
   const starredMails = JSON.parse(localStorage.getItem("starredMails"));
   const [isStarred, setIsStarred] = useState(starredMails);
-
-  localStorage.setItem("openedMails", JSON.stringify([...openedMail]));
   localStorage.setItem("starredMails", JSON.stringify([...isStarred]));
 
+  // Code for Star the Mail
+  const handleStarMail = async (id) => {
+    if (isStarred.includes(id)) {
+      const updatedStarredMails = isStarred.filter((Id) => Id !== id);
+      setIsStarred(updatedStarredMails);
+    } else {
+      setIsStarred([...isStarred, id]);
+    }
+  };
   // Check error while fetching data
   if (isError) {
     toast.error("Error fetching data, please retry");
@@ -73,17 +81,6 @@ function Inbox() {
       }
     } catch (error) {
       toast.error("Error opening the mail");
-    }
-  };
-
-  // Code for Star the Mail
-  const handleStarMail = async (id) => {
-    if (isStarred.includes(id)) {
-      const updatedStarredMails = isStarred.filter((Id) => Id !== id);
-      setIsStarred(updatedStarredMails);
-    } else {
-      setIsStarred([...isStarred, id]);
-      localStorage.setItem("starredMails", JSON.stringify([...isStarred]));
     }
   };
 

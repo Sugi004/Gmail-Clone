@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Sent() {
@@ -32,6 +32,21 @@ function Sent() {
     }
   };
 
+  // Star Mails
+  const starredMails = JSON.parse(localStorage.getItem("starredMails"));
+  const [isStarred, setIsStarred] = useState(starredMails);
+  localStorage.setItem("starredMails", JSON.stringify([...isStarred]));
+
+  // Code for Star the Mail
+  const handleStarMail = async (id) => {
+    if (isStarred.includes(id)) {
+      const updatedStarredMails = isStarred.filter((Id) => Id !== id);
+      setIsStarred(updatedStarredMails);
+    } else {
+      setIsStarred([...isStarred, id]);
+    }
+  };
+
   return (
     <>
       <div>
@@ -52,7 +67,14 @@ function Sent() {
                       <tr key={i}>
                         <td className="checkbox-cell">
                           <input type="checkbox" /> &nbsp; &nbsp;
-                          <FontAwesomeIcon icon={faStar} className="faIcon" />
+                          <FontAwesomeIcon
+                            icon={faStar}
+                            className={`starIcon ${
+                              isStarred.includes(e._id) ? "buttonActive" : ""
+                            }
+                          `}
+                            onClick={() => handleStarMail(e._id)}
+                          />
                         </td>
                         <td></td>
                         <td onClick={() => handleOpenMail(e._id)}>

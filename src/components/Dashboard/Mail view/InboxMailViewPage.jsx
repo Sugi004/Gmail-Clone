@@ -86,27 +86,9 @@ function InboxMailViewPage() {
           </div>
         </div>
       </div>
-      <div style={{ padding: "50px 50px 20px 60px" }}>{mailData.body}</div>
+      <div style={{ padding: "30px 50px 20px 70px" }}>{mailData.body}</div>
     </>
   );
 }
 
 export default InboxMailViewPage;
-
-{
-  /* <td style={{ display: "flex" }}>
-<h3 className="fromEmail" style={{ verticalAlign: "Top" }}>
-  <span translate="no" role="gridcell" tabIndex={-1}>
-    <span
-      className="g3 "
-      style={{
-        fontWeight: 400,
-        verticalAlign: "top"
-      }}
-    >
-      {formatDate(mailData.date)}
-    </span>
-  </span>
-</h3>
-</td> */
-}

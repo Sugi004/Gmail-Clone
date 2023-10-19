@@ -15,65 +15,25 @@ import StarredMails from "./components/Dashboard/StarredMails/StarredMails";
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<CreateAccount />} />
+      <UserContext>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/sign-up" element={<CreateAccount />} />
 
-          <Route path="/mails" element={<Dashboard />}>
-            <Route
-              path="inbox"
-              element={
-                <UserContext>
-                  <Inbox />
-                </UserContext>
-              }
-            />
-            <Route
-              path="sent"
-              element={
-                <UserContext>
-                  <Sent />
-                </UserContext>
-              }
-            />
-            <Route
-              path="inbox/:id"
-              element={
-                <UserContext>
-                  <InboxMailViewPage />
-                </UserContext>
-              }
-            />
-            <Route
-              path="sent/:id"
-              element={
-                <UserContext>
-                  <SentboxMailViewPage />
-                </UserContext>
-              }
-            />
-            <Route
-              path="starred"
-              element={
-                <UserContext>
-                  <StarredMails />
-                </UserContext>
-              }
-            />
-            <Route
-              path="starred/:id"
-              element={
-                <UserContext>
-                  <StarredMailViewPage />
-                </UserContext>
-              }
-            />
-          </Route>
+            <Route path="/mails" element={<Dashboard />}>
+              <Route path="inbox" element={<Inbox />} />
+              <Route path="sent" element={<Sent />} />
+              <Route path="inbox/:id" element={<InboxMailViewPage />} />
+              <Route path="sent/:id" element={<SentboxMailViewPage />} />
+              <Route path="starred" element={<StarredMails />} />
+              <Route path="starred/:id" element={<StarredMailViewPage />} />
+            </Route>
 
-          <Route path="/*" element={<Navigate to="/login" />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="/*" element={<Navigate to="/login" />} />
+          </Routes>
+        </BrowserRouter>
+      </UserContext>
     </>
   );
 }

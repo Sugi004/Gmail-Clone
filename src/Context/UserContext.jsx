@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import PropTypes from "prop-types";
@@ -21,6 +21,7 @@ function UserContext({ children }) {
     "mails",
     getInboxMails,
     {
+      retry: 2,
       refetchInterval: 60000
     }
   );
@@ -88,6 +89,20 @@ function UserContext({ children }) {
     }
   };
 
+  // Get the starredMails list from localstorage and assign it to a state
+  const starredMails = JSON.parse(localStorage.getItem("starredMails"));
+  const [isStarred, setIsStarred] = useState(starredMails);
+  localStorage.setItem("starredMails", JSON.stringify([...isStarred]));
+  // Code for Star the Mail
+  const handleStarMail = async (id) => {
+    if (isStarred.includes(id)) {
+      const updatedStarredMails = isStarred.filter((Id) => Id !== id);
+      setIsStarred(updatedStarredMails);
+    } else {
+      setIsStarred([...isStarred, id]);
+    }
+  };
+
   return (
     <>
       <UseContext.Provider
@@ -99,7 +114,9 @@ function UserContext({ children }) {
           isError,
           formatTime,
           handleDelete,
-          formatDate
+          formatDate,
+          handleStarMail,
+          isStarred
         }}
       >
         {children}

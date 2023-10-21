@@ -35,6 +35,7 @@ function Navbars() {
       toast.error("Error in signing out");
     }
   };
+
   return (
     <>
       <div className="container-fluid">
@@ -42,13 +43,9 @@ function Navbars() {
           <img src={logo} />
         </span>
 
-        <Form className="d-flex">
+        <Form>
           <FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
-          <Form.Control
-            type="search"
-            placeholder="Search mail"
-            aria-label="Search"
-          />
+          <input type="search" placeholder="Search mail" aria-label="Search" />
         </Form>
 
         <Image src={profile} className="img" onClick={toggleProfileDetails} />

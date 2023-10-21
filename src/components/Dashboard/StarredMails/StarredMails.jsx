@@ -1,18 +1,22 @@
 import { UseContext } from "../../../Context/UserContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 function StarredMails() {
-  const { data, status, parsingData, formatTime, handleDelete } =
-    useContext(UseContext);
+  const {
+    data,
+    status,
+    parsingData,
+    formatTime,
+    handleDelete,
+    isStarred,
+    handleStarMail
+  } = useContext(UseContext);
 
   const navigate = useNavigate();
-
-  let starredMail = JSON.parse(localStorage.getItem("starredMails"));
-  const [removeStarred, setRemoveStarred] = useState(starredMail);
 
   let inboxMail;
   let sentMail;
@@ -32,14 +36,14 @@ function StarredMails() {
   ) {
     if (inboxMail && inboxMail.length > 0) {
       for (let e of inboxMail) {
-        if (starredMail.includes(e._id)) {
+        if (isStarred.includes(e._id)) {
           inboxStarData.push(e);
         }
       }
     }
     if (sentMail && sentMail.length > 0) {
       for (let e of sentMail) {
-        if (starredMail.includes(e._id)) {
+        if (isStarred.includes(e._id)) {
           sentBoxStarData.push(e);
         }
       }
@@ -62,13 +66,6 @@ function StarredMails() {
     }
   };
 
-  const unStarredMail = (id) => {
-    if (removeStarred.includes(id)) {
-      const updatedStarredMails = starredMail.filter((Id) => Id !== id);
-      setRemoveStarred(updatedStarredMails);
-    }
-  };
-  localStorage.setItem("starredMails", JSON.stringify([...removeStarred]));
   return (
     <>
       <div>
@@ -92,11 +89,9 @@ function StarredMails() {
                             <FontAwesomeIcon
                               icon={faStar}
                               className={`starIcon ${
-                                !removeStarred.includes(e._id)
-                                  ? ""
-                                  : "buttonActive"
+                                !isStarred.includes(e._id) ? "" : "buttonActive"
                               }`}
-                              onClick={() => unStarredMail(e._id)}
+                              onClick={() => handleStarMail(e._id)}
                             />
                           </td>
                           <td></td>
@@ -153,11 +148,9 @@ function StarredMails() {
                             <FontAwesomeIcon
                               icon={faStar}
                               className={`starIcon ${
-                                !removeStarred.includes(e._id)
-                                  ? ""
-                                  : "buttonActive"
+                                !isStarred.includes(e._id) ? "" : "buttonActive"
                               }`}
-                              onClick={() => unStarredMail(e._id)}
+                              onClick={() => handleStarMail(e._id)}
                             />
                           </td>
                           <td></td>

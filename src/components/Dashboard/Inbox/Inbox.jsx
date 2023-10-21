@@ -1,5 +1,4 @@
 import Tabs from "./Tabs.jsx";
-
 import "./inbox.css";
 import Loaders from "../../../LoaderComponents/Loaders";
 import { toast } from "react-toastify";
@@ -18,7 +17,9 @@ function Inbox() {
     parsingData,
     isError,
     formatTime,
-    handleDelete
+    handleDelete,
+    isStarred,
+    handleStarMail
   } = useContext(UseContext);
 
   const navigate = useNavigate();
@@ -30,38 +31,15 @@ function Inbox() {
   }
 
   // Set an Empty localstorage if anyone didn't exists
-  if (
-    !localStorage.getItem("openedMails") &&
-    localStorage.getItem("starredMails")
-  ) {
+  if (!localStorage.getItem("openedMails"))
     // Set an empty array in localStorage only if it doesn't exist
     localStorage.setItem("openedMails", JSON.stringify([]));
-  } else if (
-    !localStorage.getItem("starredMails") &&
-    localStorage.getItem("openedMails")
-  ) {
-    localStorage.setItem("starredMails", JSON.stringify([]));
-  }
+
   // Get the openedMails list from Local stordage and assign it to state
   const initialOpenedMails =
     JSON.parse(localStorage.getItem("openedMails")) || [];
   const [openedMail, setOpenedMail] = useState(initialOpenedMails);
   localStorage.setItem("openedMails", JSON.stringify([...openedMail]));
-
-  // Get the starredMails list from localstorage and assign it to a state
-  const starredMails = JSON.parse(localStorage.getItem("starredMails"));
-  const [isStarred, setIsStarred] = useState(starredMails);
-  localStorage.setItem("starredMails", JSON.stringify([...isStarred]));
-
-  // Code for Star the Mail
-  const handleStarMail = async (id) => {
-    if (isStarred.includes(id)) {
-      const updatedStarredMails = isStarred.filter((Id) => Id !== id);
-      setIsStarred(updatedStarredMails);
-    } else {
-      setIsStarred([...isStarred, id]);
-    }
-  };
 
   // Open the mail using ID and also store the status of mail whether it's already opened using Local Storage
   const handleOpenMail = async (id) => {
@@ -79,7 +57,7 @@ function Inbox() {
 
       if (res.status === 200) {
         const data = res.data.recievedMail.receivedMails[0];
-        navigate(`${import.meta.env.VITE_API_URL}/mails/${id}`, {
+        navigate(`/mails/inbox/${id}`, {
           state: data
         });
       }
@@ -194,11 +172,3 @@ function Inbox() {
 }
 
 export default Inbox;
-
-{
-  /* <div */
-}
-//     style={{ textAlign: "center", fontSize: "30px", fontWeight: 500, marginTop: "120p" }}
-//   >
-//     No mails to display!
-//   </div>

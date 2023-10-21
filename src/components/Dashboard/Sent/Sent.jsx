@@ -6,12 +6,20 @@ import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Sent() {
-  const { data, isLoading, status, isError, formatTime, handleDelete } =
-    useContext(UseContext);
+  const {
+    data,
+    isLoading,
+    status,
+    isError,
+    formatTime,
+    handleDelete,
+    handleStarMail,
+    isStarred,
+    seachedText
+  } = useContext(UseContext);
 
   const navigate = useNavigate();
 
@@ -32,20 +40,7 @@ function Sent() {
     }
   };
 
-  // Star Mails
-  const starredMails = JSON.parse(localStorage.getItem("starredMails"));
-  const [isStarred, setIsStarred] = useState(starredMails);
-  localStorage.setItem("starredMails", JSON.stringify([...isStarred]));
-
-  // Code for Star the Mail
-  const handleStarMail = async (id) => {
-    if (isStarred.includes(id)) {
-      const updatedStarredMails = isStarred.filter((Id) => Id !== id);
-      setIsStarred(updatedStarredMails);
-    } else {
-      setIsStarred([...isStarred, id]);
-    }
-  };
+  console.log("sentBox", seachedText);
 
   return (
     <>

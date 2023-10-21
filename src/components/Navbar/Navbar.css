@@ -43,6 +43,7 @@ img {
   margin: 17px;
   color: black;
   border-radius: 50px;
+  z-index: 1;
 }
 
 .d-flex > input[type="search"]:focus {

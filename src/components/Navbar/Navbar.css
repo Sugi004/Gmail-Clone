@@ -49,8 +49,6 @@ img {
 .d-flex > input[type="search"]:focus {
   background-color: inherit;
   content: inherit;
-  outline-offset: none !important;
-  border: none !important;
 }
 
 #signOutButton {

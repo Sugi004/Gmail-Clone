@@ -43,15 +43,17 @@ function Navbars() {
           <img src={logo} />
         </span>
 
-        <Form>
+        <Form className="d-flex">
           <FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
-          <input type="search" placeholder="Search mail" aria-label="Search" />
+          <Form.Control
+            type="search"
+            placeholder="Search mail"
+            aria-label="Search"
+          />
         </Form>
 
         <Image src={profile} className="img" onClick={toggleProfileDetails} />
-        {/* <div
-          className={`profile-container ${showProfileDetails ? "open" : ""}`}
-        > */}
+
         {showProfileDetails && (
           <div className="profile-details">
             <p>

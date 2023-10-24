@@ -15,7 +15,6 @@ function Inbox() {
     isInitialLoading,
     status,
     parsingData,
-    isError,
     formatTime,
     handleDelete,
     isStarred,
@@ -23,12 +22,6 @@ function Inbox() {
   } = useContext(UseContext);
 
   const navigate = useNavigate();
-
-  // Check error while fetching data
-
-  if (isError) {
-    toast.error("Session Expired, please login");
-  }
 
   // Set an Empty localstorage if anyone didn't exists
   if (!localStorage.getItem("openedMails"))

@@ -11,7 +11,6 @@
 
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
 - [Contributing](../CONTRIBUTING.md)
@@ -25,7 +24,7 @@ Initially I have created 2 accounts testaccount@gmail.com and testaccount2@gmail
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -41,10 +40,16 @@ A local SMTP server for email testing
 
 A step by step series of examples that tell you how to get a development env running.
 
+Clone the repository:
+
+```
+git clone https://github.com/Sugi004/Gmail-Clone.git
+```
+
 Install dependencies:
 
 ```
-cd local-mail-app
+cd gmail-clone
 npm install
 ```
 

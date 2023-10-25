@@ -6,7 +6,11 @@ The Gmail Clone Application is a simple email system that allows users to create
 
 Initially I have created 2 accounts testaccount@gmail.com and testaccount2@gmail.com and made a email communication between them.
 
+Tech Stack: MERN
+
 The Front end is created with React + Vite.
+The Back end is created with Node js, Express.
+MongoDB database is used for storing user data and mails.
 
 Features
 

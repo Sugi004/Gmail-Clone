@@ -21,11 +21,6 @@ A local SMTP server for email testing
 
 Install dependencies:
 
-cd local-mail-app
-npm install
-
-Configure the local SMTP server:
-
 Set up a local SMTP server like MailHog using Node Mailer and make sure it's running.
 Update the SMTP server configuration in the application settings.
 Start the application:
@@ -49,6 +44,7 @@ If you encounter issues with the application or local SMTP server, please check 
 Ensure the local SMTP server is running and properly configured. Check the application's configuration, especially the SMTP server settings. Review error messages in the application console for clues on what might be wrong. Contributing If you'd like to contribute to the project, please follow these steps:
 
 Contributing
+
 If you'd like to contribute to the project, please follow these steps:
 
 Fork the project.

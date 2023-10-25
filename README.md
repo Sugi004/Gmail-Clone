@@ -6,6 +6,8 @@ The Gmail Clone Application is a simple email system that allows users to create
 
 Initially I have created 2 accounts testaccount@gmail.com and testaccount2@gmail.com and made a email communication between them.
 
+The Front end is created with React + Vite.
+
 Features
 
 User account creation Send and receive emails locally Local SMTP server for email communication Star the mails Open/View the received & sent mails Prerequisites Before you begin, ensure you have met the following requirements:
@@ -41,12 +43,3 @@ Fork the project. Create a new branch for your feature or fix. Commit your chang
 Contact If you have any questions or need further assistance, feel free to contact me at sugishivam8@gmail.com.
 
 Thank you for using the Gmail Clone Application!
-
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

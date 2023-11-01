@@ -20,7 +20,6 @@ function Login() {
     email: "",
     password: ""
   });
-
   let [isLoading, setIsLoading] = useState(false);
   let navigate = useNavigate();
 
@@ -66,6 +65,15 @@ function Login() {
       [e.target.name]: e.target.value
     });
   };
+
+  const handleShowPassword = () => {
+    let showPass = document.getElementById("password");
+    if (showPass.type === "password") {
+      showPass.type = "text";
+    } else {
+      showPass.type = "password";
+    }
+  };
   return (
     <>
       <div className="container login-wrapper">
@@ -94,7 +102,6 @@ function Login() {
               />
             </FloatingLabel>
           </Form.Group>
-
           <Form.Group controlId="formBasicPassword">
             <FloatingLabel
               controlId="floatingInput"
@@ -104,13 +111,18 @@ function Login() {
               <Form.Control
                 type="password"
                 placeholder="Password"
+                id="password"
                 name="password"
                 autoComplete="off"
                 onChange={handleInputs}
               />
             </FloatingLabel>
           </Form.Group>
-
+          <div className="checkBox-wrapper">
+            <input type="checkbox" id="check" onChange={handleShowPassword} />{" "}
+            &nbsp;
+            <span>Show Password</span>
+          </div>
           <Button
             onClick={handleLogin}
             disabled={isLoading}

@@ -1,7 +1,7 @@
 .container.login-wrapper {
   text-align: center;
   max-width: 450px;
-  margin: 50px auto;
+  margin: 10% auto;
   padding: 30px 40px 60px 40px;
   background-color: #fff;
   border: 1px solid #e7e4e4;
@@ -58,4 +58,15 @@ span a {
 
 span a:hover {
   text-decoration: underline;
+}
+
+.checkBox-wrapper {
+  display: flex;
+  justify-content: start;
+  margin-left: 10px;
+}
+
+.checkBox-wrapper > input {
+  cursor: pointer;
+  margin-right: 10px;
 }

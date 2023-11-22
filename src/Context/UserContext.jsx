@@ -90,6 +90,11 @@ function UserContext({ children }) {
   };
 
   // Get the starredMails list from localstorage and assign it to a state
+
+  if (!localStorage.getItem("starredMails")) {
+    localStorage.setItem("starredMails", JSON.stringify([]));
+  }
+
   const starredMails = JSON.parse(localStorage.getItem("starredMails"));
   const [isStarred, setIsStarred] = useState(starredMails);
   localStorage.setItem("starredMails", JSON.stringify([...isStarred]));

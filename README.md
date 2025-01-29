@@ -66,7 +66,7 @@ npm start
 
 ## 🎈 Usage <a name="usage"></a>
 
-Open your web browser and access the application at http://localhost:5173.
+Open your web browser and access the application.
 
 Create 2 user accounts with a username and password.
 

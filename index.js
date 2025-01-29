@@ -19,6 +19,7 @@ app.use(
       "http://localhost:5173",
       "https://gmail-clone-fe--lambent-cascaron-86ce02.netlify.app",
       "http://localhost:8000",
+      "https://lambent-cascaron-86ce02.netlify.app/",
       "*"
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
